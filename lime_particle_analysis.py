@@ -491,7 +491,7 @@ if reccost =="Yes":
 
 
     
-st.markdown("<h3 style='text-align: center; color: blue;'>Lime Recommendation based on SMP Method</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; color: blue;'>Lime Recommendation and its cost based on SMP Method</h3>", unsafe_allow_html=True)
 st.markdown("<h5 style='text-align: center; color: black;'>You will need to djust the Target pH and Buffer pH </h5>", unsafe_allow_html=True)
 
 # This data is used to to calculate the recommended amount of lime based on target pH and soil buffer.
