@@ -68,8 +68,8 @@ container1.write("""**:red[All rights reserved]**.
     The manual form has a capacity of calculating five lime sources whereas uploading an excel file allows you to 
     calculate as many lime soures as you want. Graphs and data are not shown by default, so you will need to check boxes or toggle buttons 
     for your desired calculation. This app works for both Sikora-2 buffer (which is default buffer here) and SMP 
-    buffer. To perform SMP analysis, you will need to enter CCE value (in the case of excel file, please use defaul values in other columsn) 
-     and just the target pH and buffer pH from the drop-down lsits""")
+    buffer. To perform SMP analysis, you will need to enter CCE value (in the case of excel file, please use defaul values in other columns) 
+     and adjust the target pH and buffer pH from the drop-down lsits""")
 
 
 st.markdown("<h2 style='text-align: center; color: blue;'>Lime Sources</h2>", unsafe_allow_html=True)
