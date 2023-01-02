@@ -170,7 +170,7 @@ if percent_weight =="Lab Results (Weight)":
     })
 
     # Lets give an option to upload an excel file
-    st.markdown(" ### Upload an Excel.csv file")
+    st.markdown(" ### Upload a CSV file")
     uploadcond = st.checkbox("**Check to read instructions and proceed!**")
     uploadfile = None
     if uploadcond:
@@ -186,7 +186,8 @@ if percent_weight =="Lab Results (Weight)":
         so it sould not be in your file. You can give any name to the headers. If the water pH and buffer pH are unknown, 
         use default values of 4.5 and 5.5 for all your samples, respectively. The default value of CCE is 90 and the default value of price is 20.
         In the case of default values, the calculations and graphs, as you know, are incorrect.
-        Default values are used to run the model smoothly. They have no scientific meaning. 
+        Default values are used to run the model smoothly. They have no scientific meaning. If an **:red[error]** 
+        occurs, please double check that you select the correct kind of data (weight based or percentage based).
         """)
         uploadfile = st.file_uploader("")
     else:
@@ -259,7 +260,7 @@ elif percent_weight == "Lab Results (Percentage)":
     })
 
     # Lets give an option to upload an excel file
-    st.markdown(" ### Upload an Excel.csv file")
+    st.markdown(" ### Upload a CSV file")
     uploadcond = st.checkbox("**Check to read the instruction and proceed!**")
     uploadfile = None
     if uploadcond:
@@ -275,7 +276,8 @@ elif percent_weight == "Lab Results (Percentage)":
         so it sould not be in your file. You can give any name to headers.  If the water pH and buffer pH are unknown, 
         use default values of 4.5 and 5.5 for all your samples, respectively. The default value of CCE is 90 and the default value of price is 20. 
         The remaining columns are automatically calculated. In the case of default values, the calculations and graphs, as you know, are incorrect.
-        Default values are used to run the model smoothly. They have no scientific meaning. 
+        Default values are used to run the model smoothly. They have no scientific meaning. If an **:red[error]** 
+        occurs, please double check that you select the correct kind of data (weight based or percentage based).
         """)
         uploadfile = st.file_uploader("")
     else:
