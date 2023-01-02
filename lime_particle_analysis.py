@@ -187,8 +187,8 @@ if percent_weight =="Lab Results (Weight)":
         use default values of 4.5 and 5.5 for all your samples, respectively. The default value of CCE is 90 and the default value of price is 20.
         In the case of default values, the calculations and graphs, as you know, are incorrect.
         Default values are used to run the model smoothly. They have no scientific meaning. If an **:red[error]** 
-        occurs, please double check that you select the correct kind of data (weight based or percentage based).
-        """)
+        occurs, please double check that that you have selected the correct type of data (weight based or percentage based) at the 
+        top of the app.""")
         uploadfile = st.file_uploader("")
     else:
         pass
