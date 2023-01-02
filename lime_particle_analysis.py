@@ -67,7 +67,9 @@ container1.write("""**:red[All rights reserved]**.
     the form and insert values manually in the cells below or upload an excel file. 
     The manual form has a capacity of calculating five lime sources whereas uploading an excel file allows you to 
     calculate as many lime soures as you want. Graphs and data are not shown by default, so you will need to check boxes or toggle buttons 
-    for your desired calculation. """)
+    for your desired calculation. This app works for both Sikora-2 buffer (which is default buffer here) and SMP 
+    buffer. To perform SMP analysis, you will need to enter CCE value (in the case of excel file, please use defaul values in other columsn) 
+     and just the target pH and buffer pH from the drop-down lsits""")
 
 
 st.markdown("<h2 style='text-align: center; color: blue;'>Lime Sources</h2>", unsafe_allow_html=True)
@@ -360,7 +362,7 @@ if st.checkbox("Show graphs"):
     ax1.text(0.95, 0.18, "RNV (0%)", rotation =270, transform= ax1.transAxes)
     ax1.text(0.90, 0.22, "Discard", rotation =270, transform= ax1.transAxes)
     ax1.bar_label(Fplot.containers[0], fmt="%.2f", rotation =0)
-    ax1.set_title("Lime Effectiveness (%)", fontsize = 18)
+    ax1.set_title("Lime Fineness (%)", fontsize = 18)
 
 
     Splot =sns.barplot(x = "Fifty%_eff", y = 'Quarry', data=df, ax=ax2, palette=pallete)
