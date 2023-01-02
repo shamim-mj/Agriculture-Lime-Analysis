@@ -170,7 +170,7 @@ if percent_weight =="Lab Results (Weight)":
     })
 
     # Lets give an option to upload an excel file
-    st.markdown(" ### Upload an Excel file")
+    st.markdown(" ### Upload an Excel.csv file")
     uploadcond = st.checkbox("**Check to read instructions and proceed!**")
     uploadfile = None
     if uploadcond:
@@ -179,7 +179,7 @@ if percent_weight =="Lab Results (Weight)":
         "wph": 4.5, "bph":5.4, "cce": 90, 'price': 20}, index =[1]))
         subcontainer1= st.container()
         subcontainer1.write("""
-        **:blue[Tips: ]** Your file must be an excel file with a tabular format. The first row must be the header row. 
+        **:blue[Tips: ]** Your file must be an excel.csv file with a tabular format. The first row must be the header row. 
         The file must have **"9 columns"** in order of "Lime Source", "Initial amount (g) of lime sample", "The amount (g) of lime retained 
         in #10 Sieve", "The amount (g) of lime passed through #10 Sieve", "The amount (g) of lime passed through #50 Sieve", 
         "Water pH", "Buffer pH", "CCE", and "Price per ton". The left most column with empty header and a value of **"1"** is automatically generated 
@@ -194,7 +194,7 @@ if percent_weight =="Lab Results (Weight)":
 
     if uploadfile is not None:
         st.success("**File uploaded successfully!**")
-        df = pd.read_excel(uploadfile)
+        df = pd.read_csv(uploadfile)
         df.columns= ["Quarry", "initial", "gten", "lten", "lfifty", "wph", "bph", 'cce', 'price']
         st.write(df.head())
         st.caption("**:red[Here are the first five rows of your data]**")
@@ -259,7 +259,7 @@ elif percent_weight == "Lab Results (Percentage)":
     })
 
     # Lets give an option to upload an excel file
-    st.markdown(" ### Upload an Excel file")
+    st.markdown(" ### Upload an Excel.csv file")
     uploadcond = st.checkbox("**Check to read the instruction and proceed!**")
     uploadfile = None
     if uploadcond:
@@ -268,7 +268,7 @@ elif percent_weight == "Lab Results (Percentage)":
         "< #50 (%)": 60, "wph": 4.5, "bph":5.4, "cce": 90, 'price': 20}, index =[1]))
         subcontainer1= st.container()
         subcontainer1.write("""
-        **:blue[Tips: ]** Your file must be an excel file with a tabular format. The first row must be the header row. 
+        **:blue[Tips: ]** Your file must be an excel.csv file with a tabular format. The first row must be the header row. 
         The file must have **"8 columns"** in order of "Source names", " Percent of lime retained 
         in #10 Sieve", "Percent of lime passed through #10 Sieve", "Percent of lime passed through #50 Sieve", 
         "Water pH", "Buffer pH", "CCE", and "Price per ton". The left most column with empty header and a value of **"1"** is automatically generated 
@@ -283,7 +283,7 @@ elif percent_weight == "Lab Results (Percentage)":
 
     if uploadfile is not None:
         st.success("**File uploaded successfully!**")
-        df = pd.read_excel(uploadfile)
+        df = pd.read_csv(uploadfile)
         df.columns= ["Quarry", "gten", "lten", "lfifty", "wph", "bph", 'cce', 'price']
         st.write(df.head())
         st.caption("**:red[Here are the first five rows of your data]**")
