@@ -5,6 +5,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import datetime
 
+
+# This is a CSS styling that affects some part of the App.
 st.markdown(
     """
 <style>
@@ -55,7 +57,7 @@ header .decoration {
 )
 
 
-
+# Lets add a title to our App
 st.markdown("<h1 style='text-align: center; color: blue;'>Lime Particle Analysis</h1>", unsafe_allow_html=True)
 
 
@@ -71,11 +73,13 @@ container1.write("""**:red[All rights reserved]**.
     buffer. To perform SMP analysis, you will need to enter the CCE value (in the case of excel file, please use defaul values in other columns) 
      and adjust the target pH and buffer pH from the drop-down lsits""")
 
-
+# Add a tile to the sources of the lime
 st.markdown("<h2 style='text-align: center; color: blue;'>Lime Sources</h2>", unsafe_allow_html=True)
 
 
 # This data is important for finding the 100 % effective amount of lime with relevant PH
+# We will alos use the experimental_memo so it is not run repeatedly.
+# This data is taken directly from a paper published by Dr. Sikora Laboratory at the Univesity of Kentucky
 @st.experimental_memo
 def data_generate(ph = 6.4):
     if ph in [6.4, 6.6]:
@@ -109,13 +113,14 @@ def data_generate(ph = 6.4):
         index1 = [4.5, 4.7, 4.9, 5.1, 5.3, 5.5, 5.7, 5.9, 6.1, 6.3, 6.5]
         return pd.DataFrame(data=data2, index= index1)
 
-
+#Lets generate data using the fuction we just made.
 pdf = data_generate(ph=6.4)
 pdf66 = data_generate(ph=6.6)
 pdf68 = data_generate(ph=6.8)
 
 
-# Lets make some empty dictionary to  save data
+# Lets make some empty dictionary to save data
+# This is used to loop through the data in dynamic columns. You can use pandas dataframe directly too. 
 
 quarries = {}
 initial ={}
@@ -128,23 +133,28 @@ CCE = {}
 Price ={}
    
 
-# st.subheader("Is your result based on percentage or weight?")
 
+# Lets generate a datetime stamp. This is used for saving file. SO each time you save a file, the date of the 
+# will be automatically attached to your file's name. So you can later on see and refernce each measurement and keep track of it.
 date1, _,_,_,_ = st.columns(5)
 date = date1.date_input("**Date**")
-time = time = datetime.datetime.now().time()
+time = datetime.datetime.now().time()
 
-
+# Lets give the users option. In some cases the users may do the analysis themselves and know the weight of the sammpls
+# in other cases the users recieve data from special laboratories and the laboratories only give them data in percentage, not weight
+# So we have option for either case.
 percent_weight = st.radio("**Is your result based on percentage or weight?**", options =("Lab Results (Weight)", "Lab Results (Percentage)"))
-st.markdown(" ### Fill in the form manually")
-# Lets crete a date and use it as a file name so each time the file is save is unque with a time stamp.
 
-# Lets loop through the columns
-# Dynamic columns
+# Telling the user wheather s/he wants to enter the data manually (convinient for smartphone)
+st.markdown(" ### Fill in the form manually")
+
+
+# Lets make the columns or slots dynamic
 ncol = st.sidebar.number_input("**Number of Lime sources?**", 1, 5, 1)
 cols = st.columns(ncol)
-# Here, I am setting a condition if the data is in percentage or weight
 
+# Here, I am setting a condition if the data is in percentage or weight
+# Lets loop through the columns
 if percent_weight =="Lab Results (Weight)":
     for i, x in enumerate(cols):
         quarries[i]= x.text_input('**Lime Source:**', key = f"q_{i}_name")
@@ -169,15 +179,17 @@ if percent_weight =="Lab Results (Weight)":
         'price': [i for i in Price.values()]
     })
 
-    # Lets give an option to upload an excel file
+    # Lets give an option to upload an excel file.
     st.markdown(" ### Upload a CSV file")
     uploadcond = st.checkbox("**Check to read instructions and proceed!**")
     uploadfile = None
     if uploadcond:
         st.write("**:blue[Your file should look like this. The number of rows depends on the number of your samples]**")
+        # A demo file used to show the users how their file should be
         st.dataframe(pd.DataFrame({"Lime Source":"Sample1", "Initial (g)": 100, "> #10 (g)": 10, "< #10": 90,"< #50 (g)":60,
         "wph": 4.5, "bph":5.4, "cce": 90, 'price': 20}, index =[1]))
         subcontainer1= st.container()
+        # Lets give some instructions to users how to create file and how it should look like
         subcontainer1.write("""
         **:blue[Tips: ]** Your file must be an excel.csv file with a tabular format. To create a CSV file, 
         open excel, spreadsheet (Google), or numbers (Mac). The first row must be the header row. 
@@ -190,11 +202,11 @@ if percent_weight =="Lab Results (Weight)":
         **Keep in mind that** in the case of default values, the calculations and graphs for the default parameters, as you know, are incorrect.
         Default values are used to run the model smoothly. They have no scientific meaning. If an **:red[error]** 
         occurs, please double check that that you have selected the correct type of data (weight based or percentage based) at the 
-        top of the app and check if the number of columns and the extension of the file is correct.""")
+        top of the App and check if the number of columns and the extension of the file is correct.""")
         uploadfile = st.file_uploader("")
     else:
         pass
-
+    # Lets give a condition if the upload file exist or not. If it exists then make it read it. 
     if uploadfile is not None:
         st.success("**File uploaded successfully!**")
         df = pd.read_csv(uploadfile)
@@ -211,7 +223,7 @@ if percent_weight =="Lab Results (Weight)":
     df['Hund%_eff'] = (df.lfifty/df.initial)*100
     df["RNV"] = df.cce/100.00*((((df.lten-df.lfifty)/2.0)+df.lfifty)/df.initial)*100
     df['Hun_eff_lime64'] = [pdf.loc[i, str(j)] for i, j in zip (df.wph, df.bph)]
-    # For some PH values,there is no 100 percent effective lime. Model will throug an error so we need to correct it
+    # For some PH values,there is no 100 percent effective lime. Model will throug an error so we need to tweek it to a defaul value
     if "" in [i for i in df.Hun_eff_lime64]:
         phvs = df.loc[df.Hun_eff_lime64=="", ["wph", "bph"]]
         st.write(f"**:red[For the given soil water pH of {phvs.iloc[0, 0]} and buffer pH {phvs.iloc[0, 1]}, a 100 effective lime amount for a target pH of 6.4 is not calculated. A default value of 3.33 is used. Consider using lime recommendation based on SMP values below.]**")
@@ -239,6 +251,7 @@ if percent_weight =="Lab Results (Weight)":
     df['Cost66'] = df.price*df['Bulk_Rec66']
     df['Cost68'] = df.price*df['Bulk_Rec68']
 
+# here the file is generated for percentage based data
 elif percent_weight == "Lab Results (Percentage)":
     for i, x in enumerate(cols):
         quarries[i]= x.text_input('**Lime Source:**', key = f"q_{i}_name")
@@ -267,9 +280,11 @@ elif percent_weight == "Lab Results (Percentage)":
     uploadfile = None
     if uploadcond:
         st.write("**:blue[Your file should look like this. The number of rows depends on the number of your sample]**")
+        # A demo data frame
         st.dataframe(pd.DataFrame({"Lime Source":"Sample1","> #10 (%)": 10, "< #10 (%)":90,
         "< #50 (%)": 60, "wph": 4.5, "bph":5.4, "cce": 90, 'price': 20}, index =[1]))
         subcontainer1= st.container()
+        # instruction on how to create a file
         subcontainer1.write("""
         **:blue[Tips: ]** Your file must be an excel.csv file with a tabular format. The first row must be the header row. 
         The file must have **"8 columns"** in order of "**Column A:** Source names", "**Column B:** Percent of lime retained 
@@ -281,12 +296,12 @@ elif percent_weight == "Lab Results (Percentage)":
         The remaining columns are automatically calculated. In the case of default values, the calculations and graphs for the default parameters, as you know, are incorrect.
         Default values are used to run the model smoothly. They have no scientific meaning. If an **:red[error]** 
         occurs, please double check that you have selected the correct type of data (weight based or percentage based) at the 
-        top of the app and check if the number of columns and the extension of the file is correct.
+        top of the App and check if the number of columns and the extension of the file is correct.
         """)
         uploadfile = st.file_uploader("")
     else:
         pass
-
+    # upload a file if it exists. Skip if it doesn't 
     if uploadfile is not None:
         st.success("**File uploaded successfully!**")
         df = pd.read_csv(uploadfile)
@@ -331,10 +346,11 @@ elif percent_weight == "Lab Results (Percentage)":
     df['Cost66'] = df.price*df['Bulk_Rec66']
     df['Cost68'] = df.price*df['Bulk_Rec68']
 
-
+# title for the fineness of the lime and its RNV
 st.markdown("<h3 style='text-align: center; color: blue;'>Lime Particle and RNV Analysis</h3>", unsafe_allow_html=True)
-# Make charts
 
+# Lets create color pallete for our charts. There are over 100 color pallete to choose from
+# So one can pick up a color s/he wants
 colcol,_,_,_ = st.columns(4)
 pallete = colcol.selectbox("**Choose color palette for graphs**", ["Dark2","Accent", "Accent_r", "autumn", "Blues", "Blues_r", "bright", "BuGn", 
 "BuGn_r", "BuPu", "BuPu_r", "binary", "binary_r", "bone", "bone_r", "bwr", "colorblind",  "cool", "coolwarm", "copper", "cubehelix", "dark",
@@ -345,7 +361,8 @@ pallete = colcol.selectbox("**Choose color palette for graphs**", ["Dark2","Acce
 "Set2", "Set2_r", "Set3", "Set3_r", "Spectral", "Spectral_r" , "seismic", "seismic_r" ,"spring","spring_r", "summer","summer_r", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd",
 "prism", "terrain", "terrain_r","winter", "winter_r"])
 
-
+# Lets give some dynamic condisiton to the charts. 
+# How they should resize if the number of samples is more than five. a fixed width creates problem
 @st.cache
 def graph_h():
     if df.shape[0]>5:
@@ -358,10 +375,10 @@ def graph_h():
         return 5,  2, 0, 'edge'
 eff_h, others, rotation, data_labels= graph_h()
 
-
+# By default the charts are not shown. So if someone wants to see charts, they check the box and then the graphs 
+# appear. 
 if st.checkbox("Show graphs"):
 
-    # st.markdown("<h1 style='text-align: center; color: black;'>Lime Particle Analysis</h1>", unsafe_allow_html=True)
     fig,(ax1, ax2, ax3) = plt.subplots(3, 1, figsize = (7, eff_h), sharex=True, gridspec_kw={'hspace':0})
     Fplot = sns.barplot(x = "Zero%_eff", y = 'Quarry', data=df, ax=ax1, palette=pallete)
     ax1.set_ylabel(None)
@@ -410,11 +427,12 @@ else:
 
 # Plot for Bulk Recommendation of  Lime
 st.markdown("<h3 style='text-align: center; color: blue;'>Lime Recommendation and Its Cost Based on Sikora-2 Buffer Method</h3>", unsafe_allow_html=True)
+# Here I also want to give an option 
 reccost = st.radio("**Show adjusted lime recommendation and its cost**", ("No", "Yes"))
 if reccost =="Yes":
     phcol, _,_,_,_ = st.columns(5)
     target = phcol.selectbox("**What is the target pH:**", [6.4, 6.6, 6.8], key = 'target')
-
+    # Becasue the amount of lime differs with a target pH, I want to give them options.
     if target==6.4:
         fig2, ax5 = plt.subplots(figsize =(7,others) )
         ax5.set_ylabel(None)
@@ -423,7 +441,7 @@ if reccost =="Yes":
         FiPlot = sns.barplot(x='Bulk_Rec64', y = 'Quarry', data=df, ax=ax5, palette=pallete)
         ax5.bar_label(FiPlot.containers[0], fmt="%.1f", rotation = rotation, label_type=data_labels)
         ax5.set_ylabel(None)
-        ax5.set_xlim([0, max(df.Bulk_Rec64)+max(df.Bulk_Rec64)*0.1])
+        ax5.set_xlim([0, max(df.Bulk_Rec64)+max(df.Bulk_Rec64)*0.1]) # This syntax max the x axis length dynamic. Without it the data lable makes a problem
         ax5.set_xlabel("", fontsize = 14)
         ax5.axes.xaxis.set_visible(False)
         ax5.set_xticklabels([])
@@ -503,21 +521,22 @@ if reccost =="Yes":
 
 
 
-    
+# Title for SMP buffer
 st.markdown("<h3 style='text-align: center; color: blue;'>Lime Recommendation and Its Cost Based on SMP Buffer Method</h3>", unsafe_allow_html=True)
 st.markdown("<h5 style='text-align: center; color: black;'>You will need to djust the Target pH and Buffer pH </h5>", unsafe_allow_html=True)
 
 # This data is used to to calculate the recommended amount of lime based on target pH and soil buffer.
+# this is taken from a paper already published
 data3 = {
     "6.0": [1.0, 1.4, 1.8, 2.3, 2.7, 3.1, 3.5, 3.9, 4.4, 4.8, 5.2, 5.6, 6.0, 6.5, 6.9],
     "6.4": [1.2, 1.7, 2.2, 2.7, 3.2, 3.7, 4.2, 4.7, 5.2, 5.7, 6.2, 6.7, 7.2, 7.7, 8.2],
     "6.8": [1.4, 1.9, 2.5, 3.1, 3.7, 4.2, 4.8, 5.4, 6.0, 6.5, 7.1, 7.7, 8.3, 8.9, 9.4]
 }
-
 index3 =   [6.7, 6.6, 6.5, 6.4, 6.3, 6.2, 6.1, 6.0, 5.9, 5.8, 5.7, 5.6, 5.5, 5.4, 5.3]
 
 df_smpbubber = pd.DataFrame(data=data3, index=index3)
-
+# Maybe most of the people are not intersted in this analysi and the samme sample cannot go through 
+# two buffers so lets give it an option. If someone wants to use it, then he can check the box. Data and graphs will appear
 check1 = st.checkbox("Check to Proceed", key='check1')
 
 if check1:
@@ -555,6 +574,7 @@ if check1:
 
     st.pyplot(fig4)
     st.pyplot(fig5)
+# Lets give an option if someone wants to see the data rather than graphs
 
 st.markdown("<h3 style='text-align: center; color: blue;'> Output File</h3>", unsafe_allow_html=True)
 show_data = st.checkbox("Show data")
@@ -565,9 +585,7 @@ else:
     pass
 
 # Preparing data to download
-
 df = df.to_csv().encode('utf-8')
-
 # this checkbox will allow us to download data
 st.markdown("### **:green[Download!]**")
 st.download_button(
@@ -579,6 +597,8 @@ st.download_button(
 )
 st.caption(":red[A default dataset is downloaded if you don't insert values in the form or don't upload  a file]")
 
+# Instructions are important. If someone wants to read it, they can check the box. else the instructions are 
+# hidden, which makes the App look cleaner.
 st.markdown("### **:green[Instructions]**")
 
 
@@ -603,7 +623,8 @@ if inst:
     Bulk_Rec66 is the amount of lime (ton/acre) that will raise the pH of soil to a target pH of of 6.6, etc. In other words, you will need this amount of 
     lime that you just analyzed to increase the soil pH to a target pH. The same applies to the costs too. 
     For example **cost64** is the application cost of lime per acre that will raise the soil pH to 6.4. **:blue[Bulk_smp_buffer]** is the amount of lime needed to raise to a target Ph using SMP buffer , 
-    **:blue[Cost_smp_buffer]** is the cost of application per Acre. In the case of percentage based data, the number of columns differs but the names remains the same.
+    **:blue[Cost_smp_buffer]** is the cost of application per Acre. In the case of percentage based data, the number of columns differs but the names remains the same. If you want all slots opens in one screen, please rotate 
+    the screen of your mobile device. The dark theme makes it difficult to see through, you will need to use light theme in the App setting located on top-right corner.
 
     """)
 
@@ -673,12 +694,13 @@ if inst:
     """)
 
 
-
+# A refernce to the paper I used for buffer
 st.markdown("### **:green[Reference]**")
 container8 = st.container()
 container8.write("""Ritchey, E.L., Murdock, L.W., Ditsch, D., and McGrath, J.M. 2016. Agicultural Lime Recommendation Based on Lime Quality. Plant and Soil Science.
 F.J. Sikora, Division of Regolatory Services, College of Agriculture, Food and Environment, University of Kentucky """)
 
+# If someone wants to tell us about it or give us suggestions
 st.markdown('### **:green[Contact us!]**')
 container9 = st.container()
 container9.write("""
