@@ -57,21 +57,22 @@ header .decoration {
 )
 
 
-# Lets add a title to our App
-st.markdown("<h1 style='text-align: center; color: blue;'>Lime Particle Analysis</h1>", unsafe_allow_html=True)
-
-
+# Lets add a title to our App 
 # add some information
-container1 = st.container()
-container1.write("""**:red[All rights reserved]**.
-    This web application was developed by **Mohammad Shamim (Ph.D.)** and **Robbie Williams**, a farmer in Henderson County, Kentucky, USA. 
-    Please read the **:green[instructions]** carefully before proceeding with your calculations. You can either use 
-    the form and insert values manually in the cells below or upload an excel file. 
-    The manual form has a capacity of calculating five lime sources whereas uploading an excel file allows you to 
-    calculate as many lime soures as you want. Graphs and data are not shown by default, so you will need to check boxes or toggle buttons 
-    for your desired calculation. This app works for both Sikora-2 buffer (which is the default buffer here) and SMP 
-    buffer. To perform SMP analysis, you will need to enter the CCE value (in the case of excel file, please use defaul values in other columns) 
-     and adjust the target pH and buffer pH from the drop-down lsits""")
+st.markdown("<h1 style='text-align: center; color: 	#00FF00;'>Lime Calculator with Color Charts</h1>", unsafe_allow_html=True)
+st.markdown("<h5 style='text-align: center; color: 	black;'>Particle Analysis, CCE, RNV, pH, Buffer pH, Rates, and Cost/Acre</h5>", unsafe_allow_html=True)
+st.markdown("<h6 style='text-align: left; color: 	black;'>All rights reserved. </h6>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: justify; color: 	black;'> This web application was developed by Mohammad Shamim, Ph.D., and Robbie Williams in Henderson, Kentucky, USA.</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: justify; color: 	black;'> Please read the instructions carefully before proceeding. Calculations can be determined either by manually inserting values into the cells below or by uploading the values in an Excel file. The manual form allows up to five lime source calculations. Uploading an Excel file allows an unlimited number of lime source calculations. </p>", unsafe_allow_html=True)
+st.markdown("""<p style='text-align: justify; color: 	black;'>
+Be sure to check boxes/toggle buttons for desired calculations as graphs and data are not shown by default. 
+This app works for both Sikora-2 buffer and SMP buffer. 
+If uploading an Excel file, use default values in columns other than CCE (see insturctions for uploading a file) and adjust the target pH and buffer pH from the drop-down lists.
+
+ </p>""", unsafe_allow_html=True)
+
+
+
 
 # Add a tile to the sources of the lime
 st.markdown("<h2 style='text-align: center; color: blue;'>Lime Sources</h2>", unsafe_allow_html=True)
@@ -190,19 +191,22 @@ if percent_weight =="Lab Results (Weight)":
         "wph": 4.5, "bph":5.4, "cce": 90, 'price': 20}, index =[1]))
         subcontainer1= st.container()
         # Lets give some instructions to users how to create file and how it should look like
-        subcontainer1.write("""
-        **:blue[Tips: ]** Your file must be an excel.csv file with a tabular format. To create a CSV file, 
+        subcontainer1.markdown("""
+        <div style="text-align: justify;">
+        <span style='color: green; font-weight: bold; '>Tips:</span> Your file must be an excel.csv file with a tabular format. To create a CSV file, 
         open excel, spreadsheet (Google), or numbers (Mac). The first row must be the header row. 
-        The file must have **"9 columns"** in order of "**Column A:** Lime Source", "**Column B:** Initial amount (g) of lime sample", "**Column C:** The amount (g) of lime retained 
-        in #10 Sieve", "**Column D:** The amount (g) of lime passed through #10 Sieve", "**Column E:** The amount (g) of lime passed through #50 Sieve", 
-        "**Column F:** Water pH", "**Column G:** Buffer pH", "**Column H:** CCE", and "**Column I:** Price per ton". You can give any name to the headers. If the water pH and buffer pH are unknown, 
+        The file must have "9 columns" in order of "Column A: Lime Source", "Column B: Initial amount (g) of lime sample", "Column C: The amount (g) of lime retained 
+        in #10 Sieve", "Column D: The amount (g) of lime passed through #10 Sieve", "Column E: The amount (g) of lime passed through #50 Sieve", 
+        "Column F: Water pH", "Column G: Buffer pH", "Column H: CCE", and "Column I: Price per ton". You can give any name to the headers. If the water pH and buffer pH are unknown, 
         use default values of 4.5 and 5.5 for all your samples, respectively. The default value of CCE is 90 and the default value of price is 20. 
         Once you insert values, press Ctrl + S or cmd + S. A file saving window will appear. Name your file and change the extension of 
-        your file from **:red[.xlsx]** to **:red[.csv]** and then save it. 
-        **Keep in mind that** in the case of default values, the calculations and graphs for the default parameters, as you know, are incorrect.
-        Default values are used to run the model smoothly. They have no scientific meaning. If an **:red[error]** 
+        your file from ".xlsx" to ".csv" and then save it. 
+        Keep in mind that in the case of default values, the calculations and graphs for the default parameters, as you know, are incorrect.
+        Default values are used to run the model smoothly. They have no scientific meaning. If an "error" 
         occurs, please double check that that you have selected the correct type of data (weight based or percentage based) at the 
-        top of the App and check if the number of columns and the extension of the file is correct.""")
+        top of the App and check if the number of columns and the extension of the file is correct.
+        </div>
+        """, unsafe_allow_html=True)
         uploadfile = st.file_uploader("")
     else:
         pass
@@ -285,19 +289,21 @@ elif percent_weight == "Lab Results (Percentage)":
         "< #50 (%)": 60, "wph": 4.5, "bph":5.4, "cce": 90, 'price': 20}, index =[1]))
         subcontainer1= st.container()
         # instruction on how to create a file
-        subcontainer1.write("""
-        **:blue[Tips: ]** Your file must be an excel.csv file with a tabular format. The first row must be the header row. 
-        The file must have **"8 columns"** in order of "**Column A:** Source names", "**Column B:** Percent of lime retained 
-        in #10 Sieve", "**Column C:** Percent of lime passed through #10 Sieve", "**Column D:** Percent of lime passed through #50 Sieve", 
-        "**Column E:** Water pH", "**Column F:** Buffer pH", "**Column G:** CCE", and "*Column H:** Price per ton". Once you insert values, press Ctrl + S or cmd + S. A file saving window will appear. 
-        Name your file and change the extension of your file from **:red[.xlsx]** to **:red[.csv]** and then save it. 
-        You can give any name to headers.  If the water pH and buffer pH are unknown, 
+        subcontainer1.markdown("""
+         <div style="text-align: justify;">
+        <span style='color: green; font-weight: bold;'>Tips:</span> Your file must be an excel.csv file with a tabular format. The first row must be the header row. 
+        The file must have "8 columns" in order of "Column A: Source names", "Column B: Percent of lime retained 
+        in #10 Sieve", "Column C: Percent of lime passed through #10 Sieve", "Column D: Percent of lime passed through #50 Sieve", 
+        "Column E: Water pH", "Column F: Buffer pH", "Column G: CCE", and "*Column H: Price per ton". Once you insert values, press Ctrl + S or cmd + S. A file saving window will appear. 
+        Name your file and change the extension of your file from ".xlsx" to ".csv" and then save it. 
+        You can give any name to headers. <br /> If the water pH and buffer pH are unknown, 
         use the default values of 4.5 and 5.5 for all your samples, respectively. The default value of CCE is 90 and the default value of price is 20. 
         The remaining columns are automatically calculated. In the case of default values, the calculations and graphs for the default parameters, as you know, are incorrect.
-        Default values are used to run the model smoothly. They have no scientific meaning. If an **:red[error]** 
+        Default values are used to run the model smoothly. They have no scientific meaning. If an "error" 
         occurs, please double check that you have selected the correct type of data (weight based or percentage based) at the 
         top of the App and check if the number of columns and the extension of the file is correct.
-        """)
+        </div>
+        """, unsafe_allow_html=True)
         uploadfile = st.file_uploader("")
     else:
         pass
@@ -377,14 +383,14 @@ eff_h, others, rotation, data_labels= graph_h()
 
 # By default the charts are not shown. So if someone wants to see charts, they check the box and then the graphs 
 # appear. 
-if st.checkbox("Show graphs"):
+if st.checkbox("Show Graphs"):
 
     fig,(ax1, ax2, ax3) = plt.subplots(3, 1, figsize = (7, eff_h), sharex=True, gridspec_kw={'hspace':0})
     Fplot = sns.barplot(x = "Zero%_eff", y = 'Quarry', data=df, ax=ax1, palette=pallete)
     ax1.set_ylabel(None)
     ax1.text(0.65, 0, s="#10 Seive", transform = ax1.transAxes)
     ax1.text(0.95, 0.18, "RNV (0%)", rotation =270, transform= ax1.transAxes)
-    ax1.text(0.90, 0.22, "Discard", rotation =270, transform= ax1.transAxes)
+    # ax1.text(0.90, 0.22, "Discard", rotation =270, transform= ax1.transAxes)
     ax1.bar_label(Fplot.containers[0], fmt="%.2f", rotation =0)
     ax1.set_title("Lime Fineness (%)", fontsize = 18)
 
@@ -595,7 +601,7 @@ st.download_button(
     file_name = f"Lime_particle_analysis_[{date}]_[{time}].csv",
     mime = 'text/csv'
 )
-st.caption(":red[A default dataset is downloaded if you don't insert values in the form or don't upload  a file]")
+st.caption(":red[Note that a default dataset, corresponding to the number of open slots, is downloaded if you don't insert values in the form or don't upload  a file]")
 
 # Instructions are important. If someone wants to read it, they can check the box. else the instructions are 
 # hidden, which makes the App look cleaner.
@@ -605,43 +611,35 @@ st.markdown("### **:green[Instructions]**")
 inst = st.checkbox('Check the box to read', key = 'inst')
 if inst:
     container2 = st.container()
-    container2.write("""
-    **A) Using the App:** You can open up to 5 slots for your Agricultural lime analysis. For example, if you are interested in analyzing 
-    3 lime sourcess, you will select 3 from  the left-hand side selector which is titled as **"Number of Lime Sources"** (If you are using a phone, it will be hidden on the top-left corner of your screen). 
-    After that, the form will show 3 columns for you. You can insert values there and check :green["Show graphs"]. 
-    It will draw charts and create a CSV file for you. To save a chart to your computer, right-click on the chart 
-    and then choose **:blue["save image as"]** or **:blue["copy image"]** and then paste it as a picture in other places (press and hold in the case of a smartphone or ipad). To save data, 
-    You will need to go to the **:green[Download]** section and check the box. an option will pop up. Pressing that button will 
-    save the data to your machine automaticallly. In the data, you will see many columns. **:blue[Initial]** is the initial weight of the sample, **:blue[gten]** means the amount that did not pass through the #10 Sieve, 
-    **:blue[lten]** is the amount that passed through the #10 Sieve, **:blue[lfifty] is the amount that passed through the #50 Sieve, 
-    **:blue[wph]** is soil water pH, **:blue[bph]** is soil buffer pH, **:blue[cce]** is Culcium Carbonate Equivalent (CCE), **:blue[Zero%_eff]** is the percent of lime that is not effective at all (discad) or 
-    the percent of lime with particle size bigger than #10 Sieve. **:blue[Fifty%_eff]** is the percent of lime that is 50 percent effective or 
-    the percent of lime with particle size smaller than #10 Sieve and bigger than #50 Seive, and **:blue[Hund%_eff]** is the percent of lime that is 100 
-    percent effective or the percent of lime with particle size smaller than #50 Sieve, **:blue[Hun_eff_lime]** is the amount of lime needed if it is 100 percent effective, **:blue[Bulk_Rec]** is the adjusted lime 
-    recommendation (ton/acre) that you will need to apply to your soil, and **:blue[Cost]** is the cost of application per acre. Numbers at the end of the names stand for target pH. For example Bulk_Rec64 
+    container2.markdown("""
+     <div style="text-align: justify;">
+    <span style='color: green; font-weight: bold;'>A) Using the App:</span> You can open up to 5 slots for your Agricultural lime analysis. For example, if you are interested in analyzing 
+    3 lime sourcess, you will select 3 from  the left-hand side selector which is titled as "Number of Lime Sources" (If you are using a phone, it will be hidden on the top-left corner of your screen). 
+    After that, the form will show 3 columns for you. You can insert values there and check  
+    <span style='color: green; font-weight: bold;'> Show Graphs</span>. 
+    It will draw charts and create a CSV file for you). To save a chart to your computer, right-click on the chart 
+    and then choose "save image as" or "copy image" and then paste it as a picture in other places (press and hold in the case of a smartphone or ipad). To save data, 
+    You will need to go to the "Download" section and check the box. an option will pop up. Pressing that button will 
+    save the data to your machine automaticallly. In the data, you will see many columns. "Initial" is the initial weight of the sample, "gten" means the amount that did not pass through the #10 Sieve, 
+    "lten" is the amount that passed through the #10 Sieve, "lfifty" is the amount that passed through the #50 Sieve, 
+    "wph" is soil water pH, "bph" is soil buffer pH, "cce" is Culcium Carbonate Equivalent (CCE), "Zero%_eff" is the percent of lime that is not effective at all (discad) or 
+    the percent of lime with particle size bigger than #10 Sieve. "Fifty%_eff" is the percent of lime that is 50 percent effective or 
+    the percent of lime with particle size smaller than #10 Sieve and bigger than #50 Seive, and "Hund%_eff" is the percent of lime that is 100 
+    percent effective or the percent of lime with particle size smaller than #50 Sieve, "Hun_eff_lime" is the amount of lime needed if it is 100 percent effective, "Bulk_Rec" is the adjusted lime 
+    recommendation (ton/acre) that you will need to apply to your soil, and "Cost" is the cost of application per acre. Numbers at the end of the names stand for target pH. For example Bulk_Rec64 
     is the amount of lime (ton/acre) that will raise the pH of soil to a target pH of 6.4,
     Bulk_Rec66 is the amount of lime (ton/acre) that will raise the pH of soil to a target pH of of 6.6, etc. In other words, you will need this amount of 
     lime that you just analyzed to increase the soil pH to a target pH. The same applies to the costs too. 
-    For example **cost64** is the application cost of lime per acre that will raise the soil pH to 6.4. **:blue[Bulk_smp_buffer]** is the amount of lime needed to raise to a target Ph using SMP buffer , 
-    **:blue[Cost_smp_buffer]** is the cost of application per Acre. In the case of percentage based data, the number of columns differs but the names remains the same. If you want all slots opens in one screen, please rotate 
-    the screen of your mobile device. The dark theme makes it difficult to see through, you will need to use light theme in the App setting located on top-right corner.
-
-    """)
-
-    container3 = st.container()
-    container3.write("""
-    **B) Sampling and moisture contnet:** Take 10 samples from the various parts of the lime stockpile and mix them well. 
+    For example "cost64" is the application cost of lime per acre that will raise the soil pH to 6.4. "Bulk_smp_buffer" is the amount of lime needed to raise to a target Ph using SMP buffer , 
+    "Cost_smp_buffer" is the cost of application per Acre. In the case of percentage based data, the number of columns differs but the names remains the same. If you want all slots opens in one screen, please rotate 
+    the screen of your mobile device. The dark theme makes it difficult to see through, you will need to use light theme in the App setting located on top-right corner. </br> 
+    <span style='color: green; font-weight: bold;'>B) Sampling and Moisture Content:</span> Take 10 samples from the various parts of the lime stockpile and mix them well. 
     This will ensure that the stockpile is represented well by the sample. 
     Measure the weight, oven-dry it, and measure the weight again. 
     The difference is the amount of moisture. For example; The amount of sample is 500 g. 
     After drying in the oven, the weight of the sample was reduced to 470 g. 500 - 470 = 30 g, 
-    meaning that there was 30 g (6%) water in the lime.
-
-    """)
-
-    container4 = st.container()
-    container4.write("""
-    **C) Partilce size (Fineness) and their effectiveness:** Measure the empty weights of the #10 Sieve, #50 Sieve, and the pan that catches the lime passing through both 
+    meaning that there was 30 g (6%) water in the lime. </br>
+    <span style='color: green; font-weight: bold;'>C) Partilce size (Fineness) and their effectiveness:</span> Measure the empty weights of the #10 Sieve, #50 Sieve, and the pan that catches the lime passing through both 
     sieves. Add a known amount (initial amount) of lime and shake it for some time (consult Dr. Sikora or Mr. Robbie). Once the shaking 
     is over, weigh the #10 Sieve and subtract the empty weight from it, it will be the amount (g) of lime that has
     0 RNV and is 0 percent effective (discard!). Subtracting this value from the initial value will give you the amount that 
@@ -659,40 +657,28 @@ if inst:
     or (280/300 *100 = 93.3%) passed through #10 Sieve. In this form, if you are aploading a excel file, you must know the amount of lime that 
     is retained by the #10 Sieve, the amount that passes through #10 Sieve, and the amount that passes through #50 Sieve. If you are inserting values 
     manually, then you only need to inter values for the amount of lime that is retained by #10 Sieve and the amount of lime that passes through 
-    #50 Sieve. The rest is calculated automatically. 
-    """)
-
-    container5 = st.container()
-    container5.write("""
-    **D) Calculating RNV:** To know the relative neutralizing value (RNV) of the lime, you will need to know the value of
+    #50 Sieve. The rest is calculated automatically. </br>
+    <span style='color: green; font-weight: bold;'>D) Calculating RNV:</span> To know the relative neutralizing value (RNV) of the lime, you will need to know the value of
     Calcium Carbonate Equivalent (CCE) in addition to the particle size amounts. 
-    You can find this either in the **:blue[website of University of Kentucky]** or ask the lime seller. Our calculator will take 
-    care of the rest. You can view and save graphs and download the data as a CSV file.
-    """)
-
-    container6 = st.container()
-    container6.write("""
-    **E) Adjusted Lime Recommendation:** Adjusted Lime Recommendation (T/Acre) is the amount of lime that you will need to apply to your soil in 
+    You can find this either in the "website of University of Kentucky" or ask the lime seller. Our calculator will take 
+    care of the rest. You can view and save graphs and download the data as a CSV file. </br>
+    <span style='color: green; font-weight: bold;'>E) Adjusted Lime Recommendation:</span> Adjusted Lime Recommendation (T/Acre) is the amount of lime that you will need to apply to your soil in 
     order to raise the pH to a Target level. It depends on many factors such as,the fineness of lime, soil water pH, buffer pH, and CCE (used to calculate RNV) :blue[(Our calcualtion 
     of the buffer pH is based on Sikora-2 buffer which takes these all into consideration)]. Insert the values in the form. You can only select the values that have been determined by Dr. Sikora laboratory. If your 
     pH is not listed there; you may find the average of the two nearest values. For example, if your water pH is 
     5.4, you can measure once for 4.3, and once 5.5, the average will be the level you need to apply (consult Dr. Sikora). 
-    It is important to know the target pH. A target pH of **:red[6.4]** is ideal for corn, soybean, small grains, cool-season grass hay and 
+    It is important to know the target pH. A target pH of "6.4" is ideal for corn, soybean, small grains, cool-season grass hay and 
     pasture, bermudagrass, native warm-season grasses, sudangrass, millets, 
     sorghum-sudangrass hybrids, lawns, tree fruits, strawberries, blackberries, 
-    raspberries, and grapes. A target pH of **:red[6.6]** is ideal for tobacco and a target pH of **:red[6.8]** is 
+    raspberries, and grapes. A target pH of "6.6" is ideal for tobacco and a target pH of "6.8" is 
     ideal for alfalfa, alfalfa/cool-season grass mixtures. 
-    **:red[In some cases, the model will warn you about the pH values you entered which means that the 100 percent effective lime is not calculated]** . 
+    "In some cases, the model will warn you about the pH values you entered which means that the 100 percent effective lime is not calculated" . 
     For example, if the soil water pH is 6.1 and buffer pH is 5.5, you will see a red warning which says that the model is using defaul values for 
-    100(%) effective lime. Read the Reference for more details. 
-    """)
-
-    container7 = st.container()
-    container7.write("""
-    **F) Cost Per Acre:** This is the cost of lime application per acre that will raise the pH of soil to a target pH.
+    100(%) effective lime. Read the Reference for more details. </br> 
+    <span style='color: green; font-weight: bold;'>F) Cost per Acre:</span> This is the cost of lime application per acre that will raise the pH of soil to a target pH.
     You will need to know the cost of lime per ton. Otherwise, the data is shown for default values. 
-    """)
-
+    </div>
+        """, unsafe_allow_html=True)
 
 # A refernce to the paper I used for buffer
 st.markdown("### **:green[Reference]**")
@@ -704,6 +690,14 @@ F.J. Sikora, Division of Regolatory Services, College of Agriculture, Food and E
 st.markdown('### **:green[Contact us!]**')
 container9 = st.container()
 container9.write("""
-**:black[Robbie Williams:]** rwilliamsfarms@bellsouth.net
-**:black[Mohammad Shamim:]** shamim.one@outlook.com
-""")
+<div style="text-align: justify;">
+<span style='color: green; font-weight: bold;'>Robbie Williams</span> is a farmer at Henderson County, Kentucky, USA with hands-on experience on 
+in analyzing lime for its quality, soil pH, soil amendment and related issues. </br>
+<a href = 'mailto: rwilliamsfarms@bellsouth.net'> Send Email </a> </br> 
+<span style='color: green; font-weight: bold;'>Mohammad Shamim (Ph.D.)</span> has received his doctoral degree from the Laboratory of Crop Science, 
+Graduate School of Agriculture, Kyoto University, Japan with special interests in the agronomy, physiology (photosynthesis), and genetics of sobyean. 
+</br>
+<a href = "mailto: shamim.one@outlook.com">Send Email</a>
+
+</div> """, 
+unsafe_allow_html = True)
