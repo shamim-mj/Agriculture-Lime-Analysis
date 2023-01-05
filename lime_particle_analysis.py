@@ -66,11 +66,14 @@ st.markdown("<p style='text-align: justify; color: 	black;'> This web applicatio
 st.markdown("<p style='text-align: justify; color: 	black;'> Please read the instructions carefully before proceeding. Calculations can be determined either by manually inserting values into the cells below or by uploading the values in an Excel file. The manual form allows up to five lime source calculations. Uploading an Excel file allows an unlimited number of lime source calculations. </p>", unsafe_allow_html=True)
 st.markdown("""<p style='text-align: justify; color: 	black;'>
 Be sure to check boxes/toggle buttons for desired calculations as graphs and data are not shown by default. 
-This app works for both Sikora-2 buffer and SMP buffer. 
-If uploading an Excel file, use default values in columns other than CCE (see insturctions for uploading a file) and adjust the target pH and buffer pH from the drop-down lists.
+This web app uses Sikora-2 buffer for determining the quantity and cost of  lime to be applied in an acre.
 
  </p>""", unsafe_allow_html=True)
-
+image1, image2 = st.columns(2)
+img1 = plt.imread('Lime particles .jpg')
+img2 = plt.imread('Sieves1.jpg')
+image1.image(img2)
+image2.image(img1)
 
 
 
@@ -230,21 +233,21 @@ if percent_weight =="Lab Results (Weight)":
     # For some PH values,there is no 100 percent effective lime. Model will throug an error so we need to tweek it to a defaul value
     if "" in [i for i in df.Hun_eff_lime64]:
         phvs = df.loc[df.Hun_eff_lime64=="", ["wph", "bph"]]
-        st.write(f"**:red[For the given soil water pH of {phvs.iloc[0, 0]} and buffer pH {phvs.iloc[0, 1]}, a 100 effective lime amount for a target pH of 6.4 is not calculated. A default value of 3.33 is used. Consider using lime recommendation based on SMP values below.]**")
+        st.write(f"**:red[Warning!: For the given soil water pH of {phvs.iloc[0, 0]} and buffer pH {phvs.iloc[0, 1]}, a 100 effective lime amount for a target pH of 6.4 is not calculated. A default value of 3.33 is used.]**")
         df['Hun_eff_lime64'] = [3.33 for i in range(df.shape[0])]
 
     df['Hun_eff_lime66'] = [pdf66.loc[i, str(j)] for i, j in zip (df.wph, df.bph)]
 
     if "" in [i for i in df.Hun_eff_lime66]:
         phvs = df.loc[df.Hun_eff_lime66=="", ["wph", "bph"]]
-        st.write(f"**:red[For the given soil water pH of {phvs.iloc[0, 0]} and buffer pH {phvs.iloc[0, 1]}, a 100 effective lime amount for a target pH of 6.6 is not calculated. A default value of 3.33 is used. Consider using lime recommendation based on SMP values below.]**")
+        st.write(f"**:red[Warning!: For the given soil water pH of {phvs.iloc[0, 0]} and buffer pH {phvs.iloc[0, 1]}, a 100 effective lime amount for a target pH of 6.6 is not calculated. A default value of 3.33 is used.]**")
         df['Hun_eff_lime66'] = [3.33 for i in range(df.shape[0])]
 
     df['Hun_eff_lime68'] = [pdf68.loc[i, str(j)] for i, j in zip (df.wph, df.bph)]
 
     if "" in [i for i in df.Hun_eff_lime68]:
         phvs = df.loc[df.Hun_eff_lime66=="", ["wph", "bph"]]
-        st.write(f"**:red[For the given soil water pH of {phvs.iloc[0, 0]} and buffer pH {phvs.iloc[0, 1]}, a 100 effective lime amount for a target pH of 6.6 is not calculated. A default value of 3.33 is used. Consider using lime recommendation based on SMP values below.]**")
+        st.write(f"**:red[Warning!: For the given soil water pH of {phvs.iloc[0, 0]} and buffer pH {phvs.iloc[0, 1]}, a 100 effective lime amount for a target pH of 6.6 is not calculated. A default value of 3.33 is used.]**")
         df['Hun_eff_lime68'] = [3.33 for i in range(df.shape[0])]
 
 
@@ -327,21 +330,21 @@ elif percent_weight == "Lab Results (Percentage)":
     # For some PH values,there is no 100 percent effective lime. Model will throug an error so we need to correct it
     if "" in [i for i in df.Hun_eff_lime64]:
         phvs = df.loc[df.Hun_eff_lime64=="", ["wph", "bph"]]
-        st.write(f"**:red[For the given soil water pH of {phvs.iloc[0, 0]} and buffer pH {phvs.iloc[0, 1]}, a 100 effective lime amount for a target pH of 6.4 is not calculated. A default value of 3.33 is used. Consider using lime recommendation based on SMP values below.]**")
+        st.write(f"**:red[Warning!: For the given soil water pH of {phvs.iloc[0, 0]} and buffer pH {phvs.iloc[0, 1]}, a 100 effective lime amount for a target pH of 6.4 is not calculated. A default value of 3.33 is used.]**")
         df['Hun_eff_lime64'] = [3.33 for i in range(df.shape[0])]
 
     df['Hun_eff_lime66'] = [pdf66.loc[i, str(j)] for i, j in zip (df.wph, df.bph)]
 
     if "" in [i for i in df.Hun_eff_lime66]:
         phvs = df.loc[df.Hun_eff_lime66=="", ["wph", "bph"]]
-        st.write(f"**:red[For the given soil water pH of {phvs.iloc[0, 0]} and buffer pH {phvs.iloc[0, 1]}, a 100 effective lime amount for a target pH of 6.6 is not calculated. A default value of 3.33 is used. Consider using lime recommendation based on SMP values below.]**")
+        st.write(f"**:red[Warning!: For the given soil water pH of {phvs.iloc[0, 0]} and buffer pH {phvs.iloc[0, 1]}, a 100 effective lime amount for a target pH of 6.6 is not calculated. A default value of 3.33 is used.]**")
         df['Hun_eff_lime66'] = [3.33 for i in range(df.shape[0])]
 
     df['Hun_eff_lime68'] = [pdf68.loc[i, str(j)] for i, j in zip (df.wph, df.bph)]
 
     if "" in [i for i in df.Hun_eff_lime68]:
         phvs = df.loc[df.Hun_eff_lime68=="", ["wph", "bph"]]
-        st.write(f"**:red[For the given soil water pH of {phvs.iloc[0, 0]} and buffer pH {phvs.iloc[0, 1]}, a 100 effective lime amount for a target pH of 6.8 is not calculated. A default value of 3.33 is used. Consider using lime recommendation based on SMP values below.]**")
+        st.write(f"**:red[Warning!: For the given soil water pH of {phvs.iloc[0, 0]} and buffer pH {phvs.iloc[0, 1]}, a 100 effective lime amount for a target pH of 6.8 is not calculated. A default value of 3.33 is used.]**")
         df['Hun_eff_lime68'] = [3.33 for i in range(df.shape[0])]
 
 
@@ -525,61 +528,6 @@ if reccost =="Yes":
         st.pyplot(fig2)
         st.pyplot(fig3)
 
-
-
-# Title for SMP buffer
-st.markdown("<h3 style='text-align: center; color: blue;'>Lime Recommendation and Its Cost Based on SMP Buffer Method</h3>", unsafe_allow_html=True)
-st.markdown("<h5 style='text-align: center; color: black;'>You will need to djust the Target pH and Buffer pH </h5>", unsafe_allow_html=True)
-
-# This data is used to to calculate the recommended amount of lime based on target pH and soil buffer.
-# this is taken from a paper already published
-data3 = {
-    "6.0": [1.0, 1.4, 1.8, 2.3, 2.7, 3.1, 3.5, 3.9, 4.4, 4.8, 5.2, 5.6, 6.0, 6.5, 6.9],
-    "6.4": [1.2, 1.7, 2.2, 2.7, 3.2, 3.7, 4.2, 4.7, 5.2, 5.7, 6.2, 6.7, 7.2, 7.7, 8.2],
-    "6.8": [1.4, 1.9, 2.5, 3.1, 3.7, 4.2, 4.8, 5.4, 6.0, 6.5, 7.1, 7.7, 8.3, 8.9, 9.4]
-}
-index3 =   [6.7, 6.6, 6.5, 6.4, 6.3, 6.2, 6.1, 6.0, 5.9, 5.8, 5.7, 5.6, 5.5, 5.4, 5.3]
-
-df_smpbubber = pd.DataFrame(data=data3, index=index3)
-# Maybe most of the people are not intersted in this analysi and the samme sample cannot go through 
-# two buffers so lets give it an option. If someone wants to use it, then he can check the box. Data and graphs will appear
-check1 = st.checkbox("Check to Proceed", key='check1')
-
-if check1:
-    col1, col2 = st.columns( 2)
-    TarPH = col1.selectbox('**:red[Targe PH]**', options = ["6.0", "6.4", "6.8"])
-    Soil_bf = col2.selectbox("**:red[Soil Buffer (SMP)]**", options = index3)
-    df['Bulk_smp_buffer'] = (df_smpbubber.loc[Soil_bf, TarPH]/df.cce) * 100
-    df['Cost_smp_buffer'] = df.Bulk_smp_buffer * df.price
-
-    fig4, ax7 = plt.subplots(figsize =(7,others) )
-    ax7.set_ylabel(None)
-    ax7.set_title(f"Adjusted Lime Recommendation ($Tons\ Acre^{-1}$)\n for a Target pH {TarPH}", fontsize = 14)
-
-    SePlot = sns.barplot(x='Bulk_smp_buffer', y = 'Quarry', data=df, ax=ax7, palette=pallete)
-    ax7.bar_label(SePlot.containers[0], fmt="%.2f", rotation = rotation, label_type=data_labels)
-    ax7.set_ylabel(None)
-    ax7.set_xlim([0, max(df.Bulk_smp_buffer)+max(df.Bulk_smp_buffer)*0.1])
-    ax7.set_xlabel("", fontsize = 14)
-    ax7.axes.xaxis.set_visible(False)
-    ax7.set_xticklabels([])
-
-    # Plot for Cost of  Lime
-
-    fig5, ax8 = plt.subplots(figsize =(7,others) )
-    ax8.set_ylabel(None)
-    ax8.set_title(f"Total Cost of Lime Application ($\$\ Acre^{-1}$)\n for a target pH {TarPH}", fontsize = 14)
-
-    EiPlot = sns.barplot(x='Cost_smp_buffer', y = 'Quarry', data=df, ax=ax8 , palette=pallete)
-    ax8.bar_label(EiPlot.containers[0], fmt="%.1f", rotation = rotation, label_type=data_labels)
-    ax8.set_xlabel(None, fontsize = 14)
-    ax8.set_xlim([0, max(df.Cost_smp_buffer)+max(df.Cost_smp_buffer)*0.1])
-    ax8.axes.xaxis.set_visible(False)
-    ax8.set_ylabel(None)
-    ax8.set_xticklabels([])
-
-    st.pyplot(fig4)
-    st.pyplot(fig5)
 # Lets give an option if someone wants to see the data rather than graphs
 
 st.markdown("<h3 style='text-align: center; color: blue;'> Output File</h3>", unsafe_allow_html=True)
@@ -617,9 +565,9 @@ if inst:
     3 lime sourcess, you will select 3 from  the left-hand side selector which is titled as "Number of Lime Sources" (If you are using a phone, it will be hidden on the top-left corner of your screen). 
     After that, the form will show 3 columns for you. You can insert values there and check  
     <span style='color: green; font-weight: bold;'> Show Graphs</span>. 
-    It will draw charts and create a CSV file for you). To save a chart to your computer, right-click on the chart 
+    It will draw charts and create a CSV file for you. To save a chart to your computer, right-click on the chart 
     and then choose "save image as" or "copy image" and then paste it as a picture in other places (press and hold in the case of a smartphone or ipad). To save data, 
-    You will need to go to the "Download" section and check the box. an option will pop up. Pressing that button will 
+    You will need to go to the "Download" section and check the box. An option will pop up. Clicking that button will 
     save the data to your machine automaticallly. In the data, you will see many columns. "Initial" is the initial weight of the sample, "gten" means the amount that did not pass through the #10 Sieve, 
     "lten" is the amount that passed through the #10 Sieve, "lfifty" is the amount that passed through the #50 Sieve, 
     "wph" is soil water pH, "bph" is soil buffer pH, "cce" is Culcium Carbonate Equivalent (CCE), "Zero%_eff" is the percent of lime that is not effective at all (discad) or 
@@ -629,10 +577,11 @@ if inst:
     recommendation (ton/acre) that you will need to apply to your soil, and "Cost" is the cost of application per acre. Numbers at the end of the names stand for target pH. For example Bulk_Rec64 
     is the amount of lime (ton/acre) that will raise the pH of soil to a target pH of 6.4,
     Bulk_Rec66 is the amount of lime (ton/acre) that will raise the pH of soil to a target pH of of 6.6, etc. In other words, you will need this amount of 
-    lime that you just analyzed to increase the soil pH to a target pH. The same applies to the costs too. 
-    For example "cost64" is the application cost of lime per acre that will raise the soil pH to 6.4. "Bulk_smp_buffer" is the amount of lime needed to raise to a target Ph using SMP buffer , 
-    "Cost_smp_buffer" is the cost of application per Acre. In the case of percentage based data, the number of columns differs but the names remains the same. If you want all slots opens in one screen, please rotate 
-    the screen of your mobile device. The dark theme makes it difficult to see through, you will need to use light theme in the App setting located on top-right corner. </br> 
+    lime to increase the soil pH to a target pH. The same applies to the costs too. 
+    For example "cost64" is the application cost of lime per acre that will raise the soil pH to 6.4. In the case of percentage based data, the number of columns differs but the names remains the same. If you want all slots opens in one screen, please rotate 
+    the screen of your mobile device. The dark theme makes it difficult to see through, you will need to use light theme in the App setting located on top-right corner. 
+    On the top-right corner of your  screen, tap the three lines. Go to Setting> Theme> and then choose "Light" from the drop-down list.  
+    You can also check the "Wide mode" to let the  app occupy the entire width of  the screen. </br> 
     <span style='color: green; font-weight: bold;'>B) Sampling and Moisture Content:</span> Take 10 samples from the various parts of the lime stockpile and mix them well. 
     This will ensure that the stockpile is represented well by the sample. 
     Measure the weight, oven-dry it, and measure the weight again. 
@@ -691,13 +640,20 @@ st.markdown('### **:green[Contact us!]**')
 container9 = st.container()
 container9.write("""
 <div style="text-align: justify;">
-<span style='color: green; font-weight: bold;'>Robbie Williams</span> is a farmer at Henderson County, Kentucky, USA with hands-on experience on 
+<span style='color: black; font-weight: bold;'>Robbie Williams</span> is a farmer at Henderson County, Kentucky, USA with hands-on experience 
 in analyzing lime for its quality, soil pH, soil amendment and related issues. </br>
 <a href = 'mailto: rwilliamsfarms@bellsouth.net'> Send Email </a> </br> 
-<span style='color: green; font-weight: bold;'>Mohammad Shamim (Ph.D.)</span> has received his doctoral degree from the Laboratory of Crop Science, 
-Graduate School of Agriculture, Kyoto University, Japan with special interests in the agronomy, physiology (photosynthesis), and genetics of sobyean. 
+<span style='color: black; font-weight: bold;'>Mohammad Shamim</span> has received his doctoral degree from the Laboratory of Crop Science, 
+Graduate School of Agriculture, Kyoto University, Japan with specific interests in the agronomy, physiology (photosynthesis), and genetics of soybean.
+He is currently a postdoc scholar  at the Department of Plant and Soil Sciences, College of Agriculture, the University of Kentucky. 
 </br>
-<a href = "mailto: shamim.one@outlook.com">Send Email</a>
+__________________________________</br>
+<span style = 'color: blue; font-weight: bold'> Colleage of Agriculture</span> </br>
+<span style = 'color: blue; font-weight: bold'> Department of Plant and Soil Sciences</span> </br>
+<span style = 'color: blue; font-weight: bold'> The University of Kentucky</span> </br>
+<span style = 'color: blue; font-weight: bold'> Kentucky, USA</span>
+
+<a href = "mailto: shamim.one@outlook.com;">Send Email</a>
 
 </div> """, 
 unsafe_allow_html = True)
