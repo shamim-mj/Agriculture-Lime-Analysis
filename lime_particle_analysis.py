@@ -121,7 +121,7 @@ pdf68 = data_generate(ph=6.8)
 
 if selected1=="Calculator":
     # Add a tile to the sources of the lime
-    st.markdown("<h3 style='background-color: #00FF00; text-align: center; color: 	black;'>Lime Sources and Specs</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style='background-color: #00FF00; font-size:35px; text-align: center; color: 	black;'>Lime Sources and Specs</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
     
@@ -149,8 +149,8 @@ if selected1=="Calculator":
         menu_icon="cast", default_index=0, orientation="horizontal",
         styles={
             "container": {"padding": "0!important", "background-color": "#fafafa"},
-            "icon": {"color": "orange", "font-size": "15px"}, 
-            "nav-link": {"font-size": "15px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+            "icon": {"color": "orange", "font-size": "20px"}, 
+            "nav-link": {"font-size": "20px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
             "nav-link-selected": {"background-color": "green"},
         }
     )
@@ -165,7 +165,7 @@ if selected1=="Calculator":
     # Lets make the columns or slots dynamic
 
     # Telling the user wheather s/he wants to enter the data manually (convinient for smartphone)
-    st.markdown("<h2 style='text-align: center; color: blue; background-color: yellow; margin: 0px'>Manual Input</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center; color: blue; font-size:25px; background-color: yellow; margin: 0px'>Manual Input</h2>", unsafe_allow_html=True)
     samp_cont1, samp_cont2 = st.columns([1, 3])
     samp_cont1.markdown("<h5 style='text-align: center; color: blue;'>" "</h5>", unsafe_allow_html=True)
 
@@ -207,7 +207,7 @@ if selected1=="Calculator":
         })
 
         # Lets give an option to upload an excel file.
-        st.markdown("<h2 style='text-align: center; color: blue; background-color: yellow;'>Upload a CSV file</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align: center; color: blue; font-size:25px; background-color: yellow;'>Upload a CSV file</h2>", unsafe_allow_html=True)
         uploadcond = st.checkbox("**Check to read instructions and proceed!**")
         uploadfile = None
         if uploadcond:
@@ -306,7 +306,7 @@ if selected1=="Calculator":
         })
 
         # Lets give an option to upload an excel file
-        st.markdown("<h2 style='text-align: center; color: blue; background-color: yellow;'>Upload a CSV file</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align: center; color: blue; font-size:25px; background-color: yellow;'>Upload a CSV file</h2>", unsafe_allow_html=True)
         uploadcond = st.checkbox("**Check to read the instruction and proceed!**")
         uploadfile = None
         if uploadcond:
@@ -385,7 +385,7 @@ if selected1=="Calculator":
     # So one can pick up a color s/he wants
     st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
-    st.markdown("<h5 style='background-color: #00FF00; text-align: center; color: 	black;'>Lime Particles, RNV, Recommended Amount, and Application Cost Analysis</h5>", unsafe_allow_html=True)
+    st.markdown("<h5 style='background-color: #00FF00; font-size:35px; text-align: center; color: 	black;'>Lime Particles, RNV, Recommended Amount, and Application Cost Analysis</h5>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
     color_cont1, color_cont2 = st.columns([1, 2])
     color_cont1.markdown("<h5 style='text-align: center; color: white; background-color: black;'>Choose color palette for graphs</h5>", unsafe_allow_html=True)
@@ -478,7 +478,7 @@ if selected1=="Calculator":
     st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
 
-    st.markdown("<h5 style='background-color: #00FF00; text-align: center; color: 	black;'>Lime Recommendation and Its Cost Based on Sikora-2 Buffer Method</h5>", unsafe_allow_html=True)
+    st.markdown("<h5 style='background-color: #00FF00; font-size:35px; text-align: center; color: 	black;'>Lime Recommendation and Its Cost Based on Sikora-2 Buffer Method</h5>", unsafe_allow_html=True)
 
     # Here I also want to give an option 
     st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
@@ -580,7 +580,7 @@ if selected1=="Calculator":
     st.markdown("<h3 style='text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
 
-    st.markdown("<h3 style='background-color: #00FF00; text-align: center; color: 	black;'>Output File</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style='background-color: #00FF00; font-size:35px; text-align: center; color: 	black;'>Output File</h1>", unsafe_allow_html=True)
     df= st.session_state['df']
         # Lets generate a datetime stamp. This is used for saving file. SO each time you save a file, the date of the 
     # will be automatically attached to your file's name. So you can later on see and refernce each measurement and keep track of it.
