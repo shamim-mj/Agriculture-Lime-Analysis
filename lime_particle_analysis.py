@@ -378,7 +378,7 @@ if selected1=="Calculator":
         df['Cost64'] = df.price*df['Bulk_Rec64']
         df['Cost66'] = df.price*df['Bulk_Rec66']
         df['Cost68'] = df.price*df['Bulk_Rec68']
-    st.session_state['df'] = df
+        st.session_state['df'] = df
 
 # title for the fineness of the lime and its RNV
     # Lets create color pallete for our charts. There are over 100 color pallete to choose from
