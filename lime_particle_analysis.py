@@ -18,8 +18,8 @@ st.set_page_config(
 
 # 3. CSS style definitions
 with st.sidebar:
-    selected1 = option_menu("Main Manue", ["Home", "Calculator", 'Download', 'Instructions', "Contact"], 
-        icons=['house', 'calculator','cloud-download-fill', 'book', 'person lines fill'], 
+    selected1 = option_menu("Main Manue", ["Home", "Calculator", 'Instructions', "Contact"], 
+        icons=['house', 'calculator', 'book', 'person lines fill'], 
         menu_icon="cast", default_index=0, #orientation="horizontal",
         styles={
             "container": {"padding": "0!important", "background-color": "#fafafa"},
@@ -122,8 +122,8 @@ pdf68 = data_generate(ph=6.8)
 if selected1=="Calculator":
     # Add a tile to the sources of the lime
     st.markdown("<h3 style='background-color: #00FF00; text-align: center; color: 	black;'>Lime Sources and Specs</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style='background-color: white; text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style='background-color: white; text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
     
 
 
@@ -167,7 +167,7 @@ if selected1=="Calculator":
     # Telling the user wheather s/he wants to enter the data manually (convinient for smartphone)
     st.markdown("<h2 style='text-align: center; color: blue; background-color: yellow; margin: 0px'>Manual Input</h2>", unsafe_allow_html=True)
     samp_cont1, samp_cont2 = st.columns([1, 3])
-    samp_cont1.markdown("<h5 style='text-align: center; color: blue; background-color: white;'>" "</h5>", unsafe_allow_html=True)
+    samp_cont1.markdown("<h5 style='text-align: center; color: blue;'>" "</h5>", unsafe_allow_html=True)
 
     samp_cont1.markdown("<h5 style='text-align: center; color: white; background-color: black;'>Number of Samples</h5>", unsafe_allow_html=True)
 
@@ -378,7 +378,7 @@ if selected1=="Calculator":
         df['Cost64'] = df.price*df['Bulk_Rec64']
         df['Cost66'] = df.price*df['Bulk_Rec66']
         df['Cost68'] = df.price*df['Bulk_Rec68']
-        st.session_state['df'] = df
+    st.session_state['df'] = df
 
 # title for the fineness of the lime and its RNV
     # Lets create color pallete for our charts. There are over 100 color pallete to choose from
@@ -400,7 +400,7 @@ if selected1=="Calculator":
     "Set2", "Set2_r", "Set3", "Set3_r", "Spectral", "Spectral_r" , "seismic", "seismic_r" ,"spring","spring_r", "summer","summer_r", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd",
     "prism", "terrain", "terrain_r","winter", "winter_r"])
 
-    df = st.session_state['df']
+    # df = st.session_state['df']
     # pallete = st.session_state['pallete']
     # Lets give some dynamic condisiton to the charts. 
     # How they should resize if the number of samples is more than five. a fixed width creates problem
@@ -576,7 +576,10 @@ if selected1=="Calculator":
 
 # st.markdown("<h3 style='text-align: center; color: blue;'> Output File</h3>", unsafe_allow_html=True)
 # show_data = st.checkbox("Show data")
-if selected1=="Download":
+# if selected1=="Download":
+    st.markdown("<h3 style='text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
+
     st.markdown("<h3 style='background-color: #00FF00; text-align: center; color: 	black;'>Output File</h1>", unsafe_allow_html=True)
     df= st.session_state['df']
         # Lets generate a datetime stamp. This is used for saving file. SO each time you save a file, the date of the 
