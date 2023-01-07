@@ -44,39 +44,14 @@ st.markdown(
     background-image: linear-gradient(#2e7bcf,#2e7bcf);
     color: light blue;
 }
-.Widget>label {
+
+[class^="st-b"] {
     color: black;
-    font-weight: bold;
-    font-size = 30px;
+    font-size = 25px;
+    font-weight= bold;
     font-family: monospace;
 }
 
-.Widget .Widget {
-    color: black;
-    font-weight: bold;
-    font-size = 30px;
-    font-family: monospace;
-}
-
-[class^="st-b"]  {
-    color: black;
-    font-family: monospace;
-}
-.st-bb {
-    background-color: light blue;
-}
-.st-at {
-    background-color: #0c8080;
-}
-footer {
-    font-family: monospace;
-}
-.reportview-container .main footer, .reportview-container .main footer a {
-    color: #0c0080;
-}
-header .decoration {
-    background-image: none;
-}
 
 </style>
 """,
@@ -264,10 +239,7 @@ if selected1=="Calculator":
         # Lets give a condition if the upload file exist or not. If it exists then make it read it. 
         if uploadfile is not None:
             st.success("**File uploaded successfully!**")
-            try:
-                df = pd.read_excel(uploadfile)
-            except:
-                df = pd.read_csv(uploadfile)
+            df = pd.read_csv(uploadfile)
             df.columns= ["Quarry", "initial", "gten", "lten", "lfifty", "wph", "bph", 'cce', 'price']
             st.write(df.head())
             st.caption("**:red[Here are the first five rows of your data]**")
@@ -365,10 +337,7 @@ if selected1=="Calculator":
         # upload a file if it exists. Skip if it doesn't 
         if uploadfile is not None:
             st.success("**File uploaded successfully!**")
-            try:
-                df = pd.read_excel(uploadfile)
-            except:
-                df = pd.read_csv(uploadfile)
+            df = pd.read_csv(uploadfile)
             df.columns= ["Quarry", "gten", "lten", "lfifty", "wph", "bph", 'cce', 'price']
             st.write(df.head())
             st.caption("**:red[Here are the first five rows of your data]**")
@@ -430,8 +399,7 @@ if selected1=="Calculator":
     "Purples", "Purples_r","rainbow","rainbow_r" ,"RdBu", "RdBu_r", "RdGy", "RdGy_r", "RdPu", "RdPu_r", "RdYlBu", "RdYlGn", "Reds", "Reds_r", "Set1", "Set1_r",
     "Set2", "Set2_r", "Set3", "Set3_r", "Spectral", "Spectral_r" , "seismic", "seismic_r" ,"spring","spring_r", "summer","summer_r", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd",
     "prism", "terrain", "terrain_r","winter", "winter_r"])
-    # st.session_state['pallete'] = pallete
-# if selected1=="Graphs":
+
     df = st.session_state['df']
     # pallete = st.session_state['pallete']
     # Lets give some dynamic condisiton to the charts. 
@@ -648,7 +616,7 @@ if selected1=='Instructions':
         particle size,  RNV, lime amount recommendation, its application cost  per acre, and see the charts. Manually,  You can open up to 5 slots for your agricultural lime analysis. For example, if you are interested in analyzing 
         3 lime sourcess, you will select 3 from  the sample selector which is titled as "Number of Samples". 
         After that, the form will show 3 columns for you. You can populate the cells and see the charts. 
-        Alternatively, you can upload an excel (.xlsx) or a comman separated value (.csv) file with unlimited samples. 
+        Alternatively, you can upload a comman separated values (.csv) file with unlimited samples. 
         The default color of the charts is "Dark2" but you can choose from  over 100 colors from the drop-down list. To save a chart to your computer, right-click on the chart 
         and then choose "save image as" or "copy image" and then paste it as a picture in other places (press and hold in the case of a smartphone or ipad). To save data, 
         You will need to go to the <span style='color: green; font-weight: bold;'>Download </span> manu. By clicking the download button,  
