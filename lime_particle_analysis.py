@@ -172,7 +172,7 @@ if selected1=="Calculator":
 
     samp_cont1.markdown("<h5 style='text-align: center; color: white; background-color: black;'>Number of Samples</h5>", unsafe_allow_html=True)
 
-    ncol = samp_cont1.number_input("", 1, 5, 2, label_visibility='collapsed')
+    ncol = samp_cont1.number_input("# of Sample", 1, 5, 2, label_visibility='collapsed')
     cols = st.columns(ncol)
 
 
@@ -392,7 +392,7 @@ if selected1=="Calculator":
     color_cont1.markdown("<h5 style='text-align: center; color: white; background-color: black;'>Choose color palette for graphs</h5>", unsafe_allow_html=True)
 
     # colcol,_,_ = st.columns(3)
-    pallete = color_cont1.selectbox("", ["Dark2","Accent", "Accent_r", "autumn", "Blues", "Blues_r", "bright", "BuGn", 
+    pallete = color_cont1.selectbox("pallete", ["Dark2","Accent", "Accent_r", "autumn", "Blues", "Blues_r", "bright", "BuGn", 
     "BuGn_r", "BuPu", "BuPu_r", "binary", "binary_r", "bone", "bone_r", "bwr", "colorblind",  "cool", "coolwarm", "copper", "cubehelix", "dark",
     "Dark2_r", "deep","GnBu", "GnBu_r", "gnuplot" ,"gnuplot2","Greens", "Greens_r", "Greys", "Greys_r" ,"gray", "hot", "hot_r" ,"jet_r","nipy_spectral", "muted",
     "OrRd", "OrRd_r","ocean", "ocean_r" ,"Oranges", "Oranges_r", "PRGn", "PRGn_r", "pink", "pink_r" ,"Paired", "Paired_r","pastel", "Pastel1", "Pastel1_r",
@@ -485,7 +485,7 @@ if selected1=="Calculator":
     st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
     tarph_cont1, tarph_cont2 = st.columns([1, 2])
     tarph_cont1.markdown("<h5 style='text-align: center; color: white; background-color: black;'>Target pH</h5>", unsafe_allow_html=True)
-    target = tarph_cont1.selectbox("", [6.4, 6.6, 6.8], key = 'target', label_visibility='collapsed')
+    target = tarph_cont1.selectbox("Target PH", [6.4, 6.6, 6.8], key = 'target', label_visibility='collapsed')
     # Becasue the amount of lime differs with a target pH, I want to give them options.
     if target==6.4:
         fig2, ax5 = plt.subplots(figsize =(7,others) )
@@ -591,7 +591,7 @@ if selected1=="Calculator":
 
     date1.markdown("<h5 style=' background-color: black; text-align: center; color: white;'>Date</h5>", unsafe_allow_html=True)
 
-    date = date1.date_input("", label_visibility='collapsed')
+    date = date1.date_input("date", label_visibility='collapsed')
     time = datetime.datetime.now().time()
     st.dataframe((df.set_index('Quarry').style.format("{:.2f}")))
     st.caption("**:blue[This dataframe is interactive, You can scroll left-to-right or top-to-bottom. Please download the file before navigating to another manu. You will lose the data otherwise!]**")
