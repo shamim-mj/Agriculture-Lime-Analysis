@@ -122,7 +122,7 @@ pdf68 = data_generate(ph=6.8)
 
 if selected1=="Calculator":
     # Add a tile to the sources of the lime
-    st.markdown("<h3 style='background-color: #00FF00; font-size:35px; text-align: center; color: 	black;'>Lime Sources and Data</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style='background-color: #00FF00; font-size:35px; text-align: center; color: 	black;'>Lime Sources and Soil Data</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
     
