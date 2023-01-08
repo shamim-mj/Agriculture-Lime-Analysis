@@ -292,7 +292,7 @@ if selected1=="Calculator":
             CCE[i] = x.number_input("**Culcium Carbonate Equivalent (CCE):**", value = 90.0, key = f'cce{i}', format="%.1f")
             wph[i] = x.selectbox('**Soil Water pH:**', options = [5.7,4.5, 4.7, 4.9, 5.1, 5.3, 5.5, 5.9, 6.1, 6.3, 6.5], key = f"q_{i}_wph")
             bph[i] = x.selectbox('**Buffer pH (Sikora-2):**', options = [6.3, 5.5, 5.7, 5.9, 6.1, 6.5, 6.7, 6.9, "NA"], key = f"q_{i}_bph")
-            Price[i] = x.number_input("**Price ($/ton):**", value = 10.0, key = f'price{i}', format="%.1f")
+            Price[i] = x.number_input("**Price ($/ton):**", value = 20.0, key = f'price{i}', format="%.1f")
 
         # This datafram is dynamic and therefore making the charts easy to plot
 
