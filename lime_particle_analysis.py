@@ -123,8 +123,8 @@ pdf68 = data_generate(ph=6.8)
 if selected1=="Calculator":
     # Add a tile to the sources of the lime
     st.markdown("<h3 style='background-color: #00FF00; font-size:35px; text-align: center; color: 	black;'>Lime and Soil Data</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style=' text-align: center; color: 	black;'>" "</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style=' text-align: center; color: 	black;'>" "</h1>", unsafe_allow_html=True)
     
 
 
@@ -384,10 +384,10 @@ if selected1=="Calculator":
 # title for the fineness of the lime and its RNV
     # Lets create color pallete for our charts. There are over 100 color pallete to choose from
     # So one can pick up a color s/he wants
-    st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
     st.markdown("<h5 style='background-color: #00FF00; font-size:35px; text-align: center; color: 	black;'>Lime Particles, RNV, Recommended Amount, and Application Cost Analysis</h5>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
     color_cont1, color_cont2 = st.columns([1, 2])
     color_cont1.markdown("<h5 style='text-align: center; color: white; background-color: black;'>Choose color palette for graphs</h5>", unsafe_allow_html=True)
 
@@ -475,9 +475,9 @@ if selected1=="Calculator":
 
 
     # Plot for Bulk Recommendation of  Lime
-    st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
 
     st.markdown("<h5 style='background-color: #00FF00; font-size:35px; text-align: center; color: 	black;'>Lime Recommendation and Its Cost Based on Sikora-2 Buffer Method</h5>", unsafe_allow_html=True)
 
