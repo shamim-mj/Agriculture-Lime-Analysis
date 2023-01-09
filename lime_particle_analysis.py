@@ -25,7 +25,7 @@ with st.sidebar:
             "container": {"padding": "0!important", "background-color": "#fafafa"},
             "icon": {"color": "orange", "font-size": "25px"}, 
             "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-            "nav-link-selected": {"background-color": "green"},
+            "nav-link-selected": {"background-color": "#0033A0"},
         }
     )
 
@@ -53,7 +53,6 @@ st.markdown(
     font-family: monospace;
 }
 
-
 </style>
 """,
     unsafe_allow_html=True,
@@ -63,12 +62,15 @@ st.markdown(
 # Lets add a title to our App 
 # add some information
 if selected1=='Home':
-    st.markdown("<h2 style='background-color: #00FF00; text-align: center; color: 	black;'>Lime Calculator with Color Charts</h2>", unsafe_allow_html=True)
-    st.markdown("<h5 style='text-align: center; color: 	black;'>Particle Analysis, CCE, RNV, pH, Buffer pH, Rates, and Cost/Acre</h5>", unsafe_allow_html=True)
+    st.markdown("<h1 style='background-color: #0033A0; text-align: center; color: 	white;'>Lime Calculator with Color Charts</h1>", unsafe_allow_html=True)
+    st.markdown("<h4 style='background-color: #0033A0;text-align: center; color: 	white;'>Particle Analysis, CCE, RNV, pH, Buffer pH, Rates, and Cost/Acre</h4>", unsafe_allow_html=True)
     st.markdown("<h6 style='text-align: left; color: 	black;'>All rights reserved. </h6>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: justify; color: 	black;'> This web application was developed by Mohammad Shamim, Ph.D., and Robbie Williams in Henderson, Kentucky, USA.</p>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: justify; color: 	black;'> Please read the instructions carefully before proceeding. Calculations can be determined either by manually inserting values into the cells below or by uploading the values in an Excel file. The manual form allows up to five lime source calculations. Uploading an Excel file allows an unlimited number of lime source calculations. </p>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: justify; color: 	black;'>Be sure to check boxes/toggle buttons for desired calculations as graphs. This web app uses Sikora-2 buffer for determining the quantity and cost of  lime to be applied in an acre.</p>", unsafe_allow_html=True)
+    st.markdown("<h2 style='background-color: #0033A0; text-align: center; color: 	white;'>Lime Lime Recommendation and Cost</h2>", unsafe_allow_html=True)
+    st.markdown("<h4 style='background-color: #0033A0;text-align: center; color: 	white;'>Particle Analysis, CCE, RNV, pH, Buffer pH, Rates, and Cost/Acre</h4>", unsafe_allow_html=True)
+    st.write("")
     image1, image2 = st.columns(2)
     img1 = plt.imread('Lime particles .jpg')
     img2 = plt.imread('Sieves1.jpg')
@@ -122,7 +124,7 @@ pdf68 = data_generate(ph=6.8)
 
 if selected1=="Calculator":
     # Add a tile to the sources of the lime
-    st.markdown("<h3 style='background-color: #00FF00; font-size:35px; text-align: center; color: 	black;'>Lime and Soil Data</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='background-color: #0033A0; font-size:35px; text-align: center; color: 	white;'>Lime and Soil Data</h2>", unsafe_allow_html=True)
     st.markdown("<h3 style=' text-align: center; color: 	black;'>" "</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style=' text-align: center; color: 	black;'>" "</h1>", unsafe_allow_html=True)
     
@@ -152,7 +154,7 @@ if selected1=="Calculator":
             "container": {"padding": "0!important", "background-color": "#fafafa"},
             "icon": {"color": "orange", "font-size": "20px"}, 
             "nav-link": {"font-size": "20px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-            "nav-link-selected": {"background-color": "green"},
+            "nav-link-selected": {"background-color": "#0033A0"},
         }
     )
 
@@ -166,11 +168,11 @@ if selected1=="Calculator":
     # Lets make the columns or slots dynamic
 
     # Telling the user wheather s/he wants to enter the data manually (convinient for smartphone)
-    st.markdown("<h2 style='text-align: center; color: blue; font-size:25px; background-color: yellow; margin: 0px'>Manual Input</h2>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: white; font-size:25px; background-color: #0033A0; margin: 0px'>Manual Input</h3>", unsafe_allow_html=True)
     samp_cont1, samp_cont2 = st.columns([1, 3])
     samp_cont1.markdown("<h5 style='text-align: center; color: blue;'>" "</h5>", unsafe_allow_html=True)
 
-    samp_cont1.markdown("<h5 style='text-align: center; color: white; background-color: black;'>Number of Samples</h5>", unsafe_allow_html=True)
+    samp_cont1.markdown("<h5 style='text-align: center; color: white; background-color: #0033A0;'>Number of Samples</h5>", unsafe_allow_html=True)
 
     ncol = samp_cont1.number_input("# of Sample", 1, 5, 2, label_visibility='collapsed')
     cols = st.columns(ncol)
@@ -208,7 +210,7 @@ if selected1=="Calculator":
         })
 
         # Lets give an option to upload an excel file.
-        st.markdown("<h2 style='text-align: center; color: blue; font-size:25px; background-color: yellow;'>Upload a CSV file</h2>", unsafe_allow_html=True)
+        st.markdown("<h3 style='text-align: center; color: white; font-size:25px; background-color: #0033A0;'>Upload a CSV file</h3>", unsafe_allow_html=True)
         uploadcond = st.checkbox("**_Check to read instructions and proceed!_**")
         uploadfile = None
         if uploadcond:
@@ -220,7 +222,7 @@ if selected1=="Calculator":
             # Lets give some instructions to users how to create file and how it should look like
             subcontainer1.markdown("""
             <div style="text-align: justify;">
-            <span style='color: green; font-weight: bold; '>Tips:</span> Your file must be an excel.csv file with a tabular format. To create a CSV file, 
+            <span style='color: #0033A0; font-weight: bold; '>Tips:</span> Your file must be an excel.csv file with a tabular format. To create a CSV file, 
             open excel, spreadsheet (Google), or numbers (Mac). The first row must be the header row. 
             The file must have "9 columns" in order of "Column A: Lime Source", "Column B: Initial amount (g) of lime sample", "Column C: The amount (g) of lime retained 
             in #10 Sieve", "Column D: The amount (g) of lime passed through #10 Sieve", "Column E: The amount (g) of lime passed through #50 Sieve", 
@@ -307,7 +309,7 @@ if selected1=="Calculator":
         })
 
         # Lets give an option to upload an excel file
-        st.markdown("<h2 style='text-align: center; color: blue; font-size:25px; background-color: yellow;'>Upload a CSV file</h2>", unsafe_allow_html=True)
+        st.markdown("<h3 style='text-align: center; color: white; font-size:25px; background-color: #0033A0;'>Upload a CSV file</h3>", unsafe_allow_html=True)
         uploadcond = st.checkbox("**Check to read the instruction and proceed!**")
         uploadfile = None
         if uploadcond:
@@ -319,7 +321,7 @@ if selected1=="Calculator":
             # instruction on how to create a file
             subcontainer1.markdown("""
             <div style="text-align: justify;">
-            <span style='color: green; font-weight: bold;'>Tips:</span> Your file must be an excel.csv file with a tabular format. The first row must be the header row. 
+            <span style='color: #0033A0; font-weight: bold;'>Tips:</span> Your file must be an excel.csv file with a tabular format. The first row must be the header row. 
             The file must have "8 columns" in order of "Column A: Source names", "Column B: Percent of lime retained 
             in #10 Sieve", "Column C: Percent of lime passed through #10 Sieve", "Column D: Percent of lime passed through #50 Sieve", 
             "Column E: Water pH", "Column F: Buffer pH", "Column G: CCE", and "*Column H: Price per ton". Once you insert values, press Ctrl + S or cmd + S. A file saving window will appear. 
@@ -386,10 +388,10 @@ if selected1=="Calculator":
     # So one can pick up a color s/he wants
     st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
-    st.markdown("<h5 style='background-color: #00FF00; font-size:35px; text-align: center; color: 	black;'>Lime Particles, RNV, Recommended Amount, and Application Cost Analysis</h5>", unsafe_allow_html=True)
+    st.markdown("<h2 style='background-color: #0033A0; text-align: center; color: 	white;'>Lime Particles, RNV, Recommended Amount, and Application Cost Analysis</h2>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
     color_cont1, color_cont2 = st.columns([1, 2])
-    color_cont1.markdown("<h5 style='text-align: center; color: white; background-color: black;'>Choose color palette for graphs</h5>", unsafe_allow_html=True)
+    color_cont1.markdown("<h5 style='text-align: center; color: white; background-color: #0033A0;'>Choose color palette for graphs</h5>", unsafe_allow_html=True)
 
     # colcol,_,_ = st.columns(3)
     pallete = color_cont1.selectbox("pallete", ["Dark2","Accent", "Accent_r", "autumn", "Blues", "Blues_r", "bright", "BuGn", 
@@ -479,12 +481,12 @@ if selected1=="Calculator":
     st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
 
-    st.markdown("<h5 style='background-color: #00FF00; font-size:35px; text-align: center; color: 	black;'>Lime Recommendation and Its Cost Based on Sikora-2 Buffer Method</h5>", unsafe_allow_html=True)
+    st.markdown("<h5 style='background-color: #0033A0; font-size:35px; text-align: center; color: 	white;'>Lime Recommendation and Its Cost Based on Sikora-2 Buffer Method</h5>", unsafe_allow_html=True)
 
     # Here I also want to give an option 
     st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
     tarph_cont1, tarph_cont2 = st.columns([1, 2])
-    tarph_cont1.markdown("<h5 style='text-align: center; color: white; background-color: black;'>Target pH</h5>", unsafe_allow_html=True)
+    tarph_cont1.markdown("<h5 style='text-align: center; color: white; background-color: #0033A0;'>Target pH</h5>", unsafe_allow_html=True)
     target = tarph_cont1.selectbox("Target PH", [6.4, 6.6, 6.8], key = 'target', label_visibility='collapsed')
     # Becasue the amount of lime differs with a target pH, I want to give them options.
     if target==6.4:
@@ -581,7 +583,7 @@ if selected1=="Calculator":
     st.markdown("<h3 style='text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
 
-    st.markdown("<h3 style='background-color: #00FF00; font-size:35px; text-align: center; color: 	black;'>Output File</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='background-color: #0033A0; font-size:35px; text-align: center; color: 	white;'>Output File</h2>", unsafe_allow_html=True)
     st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h3>", unsafe_allow_html=True)
 
     df= st.session_state['df']
@@ -589,7 +591,7 @@ if selected1=="Calculator":
     # will be automatically attached to your file's name. So you can later on see and refernce each measurement and keep track of it.
     date1, _,_,_,_ = st.columns(5)
 
-    date1.markdown("<h5 style=' background-color: black; text-align: center; color: white;'>Date</h5>", unsafe_allow_html=True)
+    date1.markdown("<h5 style=' background-color: #0033A0; text-align: center; color: white;'>Date</h5>", unsafe_allow_html=True)
 
     date = date1.date_input("date", label_visibility='collapsed')
     time = datetime.datetime.now().time()
@@ -599,7 +601,7 @@ if selected1=="Calculator":
 # Preparing data to download
     df = df.to_csv().encode('utf-8')
     # this checkbox will allow us to download data
-    st.markdown("### **:green[Download!]**")
+    st.markdown("### **:blue[Download!]**")
     st.download_button(
         key = 'b_csv',
         label = "Download data as csv file",
@@ -611,24 +613,23 @@ if selected1=="Calculator":
     st.markdown("Generate Report")
 # Instructions are important. If someone wants to read it, they can check the box. else the instructions are 
 # hidden, which makes the App look cleaner.
-# st.markdown("### **:green[Instructions]**")
 
 
 if selected1=='Instructions':
-        st.markdown("<h3 style='background-color: #00FF00; text-align: center; color: 	black;'>Instructions</h1>", unsafe_allow_html=True)
+        st.markdown("<h2 style='background-color: #0033A0; text-align: center; color: 	white;'>Instructions</h1>", unsafe_allow_html=True)
         st.markdown("<h3 style='background-color: white; text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
         container2 = st.container()
         container2.markdown("""
         <div style="text-align: justify;">
-        <span style='color: green; font-weight: bold;'>A) Using the App:</span> This web App has four menus. In the <span style='color: green; font-weight: bold;'>Home </span> manu, you can read about  the App and a brief introduction.
-        The main menu is the <span style='color: green; font-weight: bold;'>Calculator </span> where you can input your data and calculate your  samples for 
+        <span style='color: #0033A0; font-weight: bold;'>A) Using the App:</span> This web App has four menus. In the <span style='color: blue; font-weight: bold;'>Home </span> manu, you can read about  the App and a brief introduction.
+        The main menu is the <span style='color: #0033A0; font-weight: bold;'>Calculator </span> where you can input your data and calculate your  samples for 
         particle size,  RNV, lime amount recommendation, its application cost  per acre, and see the charts. Manually,  you can open up to 5 slots for your agricultural lime analysis. For example, if you are interested in analyzing 
         3 lime sources, you will select 3 from  the sample selector which is titled as "Number of Samples". 
         After that, the form will show 3 columns for you. You can populate the cells and see the charts. 
         Alternatively, you can upload a comma separated values (.csv) file with unlimited samples. 
         The default color of the charts is "Dark2" but you can choose from  over 100 colors from the drop-down list. To save a chart to your computer, right-click on the chart 
         and then choose "save image as" or "copy image" and then paste it as a picture in other places (press and hold in the case of a smartphone or iPad). To save data, 
-        you will need to go to the <span style='color: green; font-weight: bold;'>Download </span> section in the "Calculator" menu. By clicking the download button,  
+        you will need to go to the <span style='color: #0033A0; font-weight: bold;'>Download </span> section in the "Calculator" menu. By clicking the download button,  
         the data will be saved to your machine automatically. In the data, you will see many columns. "Initial" is the initial weight of the sample, "gten" means the amount that did not pass through the #10 Sieve, 
         "lten" is the amount that passed through the #10 Sieve, "lfifty" is the amount that passed through the #50 Sieve, 
         "wph" is soil water pH, "bph" is soil buffer pH, "cce" is Culcium Carbonate Equivalent (CCE), "Zero%_eff" is the percent of lime that is not effective at all (discad) or 
@@ -643,24 +644,24 @@ if selected1=='Instructions':
         the screen of your mobile device. The dark theme makes it difficult to see through, you will need to use light theme in the App setting located on top-right corner. 
         On the top-right corner of your  screen, tap the three lines. Go to Setting> Theme> and then choose "Light" from the drop-down list.  
         You can also check the "Wide mode" to let the  app occupy the entire width of  the screen. </br> 
-        <span style='color: green; font-weight: bold;'>B) Sampling and Moisture Content:</span> Take 10 samples from the various parts of the lime stockpile and mix them well. 
+        <span style='color: #0033A0; font-weight: bold;'>B) Sampling and Moisture Content:</span> Take 10 samples from the various parts of the lime stockpile and mix them well. 
         This will ensure that the stockpile is represented well by the sample. 
-        Measure the weight, oven-dry it, and measure the weight again. 
+        Measure the weight, oven-dry it overnight at 230 degrees F (110 degrees C), and measure the weight again. 
         The difference is the amount of moisture. For example; The amount of sample is 500 g. 
         After drying in the oven, the weight of the sample was reduced to 470 g. 500 - 470 = 30 g, 
-        meaning that there was 30 g (6%) water in the lime. </br>
-        <span style='color: green; font-weight: bold;'>C) Particle size (Fineness) and their effectiveness:</span> Measure the empty weights of the #10 Sieve, #50 Sieve, and the pan that catches the lime passing through both 
+        meaning that there was 30 g {([wet weight - dry weight]/wet weight) * 100) = 6%} water in the lime. </br>
+        <span style='color: #0033A0; font-weight: bold;'>C) Particle size (Fineness) and their effectiveness:</span> Measure the empty weights of the #10 Sieve, #50 Sieve, and the pan that catches the lime passing through both 
         sieves. Add a known amount (initial amount) of lime and shake it for some time (consult Dr. Sikora or Mr. Robbie). Once the shaking 
         is over, weigh the #10 Sieve and subtract the empty weight from it, it will be the amount (g) of lime that has
         0 RNV and is 0 percent effective (discard!). Subtracting this value from the initial value will give you the amount that 
-        passed through the 10# Sieve. Measuring the weight of the pan and subtracting the empty weight of pan from it will give us the weight of lime that passed through 
-        50# Sieve. Lime particles that pass through the #50 Sieve are 100 percent effective.  Subtracting the amount passing 
+        passed through the #10 Sieve. Measuring the weight of the pan and subtracting the empty weight of pan from it will give us the weight of lime that passed through 
+        #50 Sieve. Lime particles that pass through the #50 Sieve are 100 percent effective.  Subtracting the amount passing 
         through #50 Sieve from the amount passing through #10 will give us the amount of lime that has passed through 
-        10# Sieve but not through #50 Sieve, which is 50 percent effective. For example, the initial weight of a sample 
+        #10 Sieve but not through #50 Sieve, which is 50 percent effective. For example, the initial weight of a sample 
         before putting it into Sieves was 300 g. The weights of the empty #10 Sieve, #50 Sieve, and pan are 200 g, 210 g, and 300 g, 
         respectively. After shaking, the weight of the #10 Sieve, #50 Sieve, and Pan increased to 220 g, 300 g, and 490 g, respectively. 
         We can see that 220 - 200 = 20 g (or 20/300 * 100 = 6.6%) is the amount of lime that was retained by #10 Sieve and has zero effectiveness. 
-        The amount of lime that passes through 10# and does not pass through #50 Sieve is 
+        The amount of lime that passes through #10 and does not pass through #50 Sieve is 
         300 - 210 = 90 g (or 90/300 *100 = 30%), which is 50 percent effective. Lastly, 490 - 300 = 190 (or 190/300 *100 = 63.3%), which is the amount that passed through 
         #50 and is 100 (g) percent effective. If you want to know the amount that passes through #10 Sieve, then the initial amount minus the amount of 
         lime that did not pass through #10 Sieve is the answer. In our example, 20 g or 6.6(%) did not pass through #10 Sieve which means that 280 g 
@@ -668,11 +669,15 @@ if selected1=='Instructions':
         is retained by the #10 Sieve, the amount that passes through #10 Sieve, and the amount that passes through #50 Sieve. If you are inserting values 
         manually, then you only need to inter values for the amount of lime that is retained by #10 Sieve and the amount of lime that passes through 
         #50 Sieve. The rest is calculated automatically. </br>
-        <span style='color: green; font-weight: bold;'>D) Calculating RNV:</span> To know the relative neutralizing value (RNV) of the lime, you will need to know the value of
-        Calcium Carbonate Equivalent (CCE) in addition to the particle size amounts. 
-        You can find this either on the "website of University of Kentucky" or ask the lime seller. Our calculator will take 
-        care of the rest. You can view and save graphs and download the data as a CSV file. </br>
-        <span style='color: green; font-weight: bold;'>E) Adjusted Lime Recommendation:</span> Adjusted Lime Recommendation (T/Acre) is the amount of lime that you will need to apply to your soil in 
+        <span style='color: #0033A0; font-weight: bold;'>D) Calculating RNV:</span> To know the relative neutralizing value (RNV) of the lime, you will need to know the value of
+        Calcium Carbonate Equivalent (CCE) and the particle size fraction. 
+        You can obtain this information from yuor  lime supplier or from various state and university lab reports. For example, <a href = "https://www.rs.uky.edu/soil/technical_info/">Rock Quarry Lime Reports - University of Kentucky</a>
+        This app is set up for #10 and #50 sieves and accepts lime particle size fractions in (%) of total or individual  sieve weights. The University of Kentucky 
+        uses #10 and #50 sieves for lime particle analysis. Other testing labs may use different sieve sets. For example, #8, #20,  #60, and #100 sieves. 
+        If you have access to a sieve shaker and wish to separate and weigh your own particle size fractions, dry the lime overnight at 230 degrees F (110 degress C).
+        Graphs are  automatically created. You can view and save graphs and download the data as a CSV file. 
+        You can view and save graphs and download the data as a CSV file. </br>
+        <span style='color: #0033A0; font-weight: bold;'>E) Adjusted Lime Recommendation:</span> Adjusted Lime Recommendation (T/Acre) is the amount of lime that you will need to apply to your soil in 
         order to raise the pH to a Target level. It depends on many factors such as, the fineness of lime, soil water pH, buffer pH, and CCE (used to calculate RNV) :blue[(our calculation 
         of the buffer pH is based on Sikora-2 buffer which takes these all into consideration)]. Insert the values in the form. You can only select the values that have been determined by Dr. Sikora laboratory. If your 
         sampled pH is not listed there; you may find the average of the two nearest values. For example, if your water pH is 
@@ -685,28 +690,33 @@ if selected1=='Instructions':
         "In some cases, the model will warn you about the pH values you entered which means that the 100 percent effective lime is not calculated" . 
         For example, if the soil water pH is 6.1 and buffer pH is 5.5, you will see a red warning which says that the model is using default values for 
         100(%) effective lime. Read the Reference for more details. </br> 
-        <span style='color: green; font-weight: bold;'>F) Cost per Acre:</span> This is the cost of lime application per acre that will raise the pH of soil to a target pH.
+        <span style='color: #0033A0; font-weight: bold;'>F) Cost per Acre:</span> This is the cost of lime application per acre that will raise the pH of soil to a target pH.
         You will need to know the cost of lime per ton. Otherwise, the data is shown for default values. 
         </div>
             """, unsafe_allow_html=True)
 
 # A refernce to the paper I used for buffer
-        st.markdown("### **:green[Reference]**")
+        st.markdown("<h3 style='background-color: white; text-align: left; color: #0033A0;'>Download</h1>", unsafe_allow_html=True)
         container8 = st.container()
-        container8.write("""Ritchey, E.L., Murdock, L.W., Ditsch, D., and McGrath, J.M. 2016. Agicultural Lime Recommendation Based on Lime Quality. Plant and Soil Science.
-        F.J. Sikora, Division of Regolatory Services, College of Agriculture, Food and Environment, University of Kentucky """)
+        container8.write("""
+        <div style="text-align: justify;">
+        <span style='color: black; text-align: justify'>Ritchey, E.L., Murdock, L.W., Ditsch, D., and McGrath, J.M. 2016. Agicultural Lime Recommendation Based on Lime Quality. Plant and Soil Science.
+        F.J. Sikora, Division of Regolatory Services, College of Agriculture, Food and Environment, University of Kentucky.</span>
+        <a href = 'http://www2.ca.uky.edu/agcomm/pubs/id/id163/id163.pdf'> Click here to read!</a> </div>
+        """, 
+        unsafe_allow_html = True)
 
 # If someone wants to tell us about it or give us suggestions
 if selected1 =='Contact':
-    st.markdown("<h3 style='background-color: #00FF00; text-align: center; color: 	black;'>Contact</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style='background-color: white; text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='background-color: #0033A0; text-align: center; color: 	white;'>Contact</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='background-color: white; text-align: center; color: 	black;'>""</h2>", unsafe_allow_html=True)
 
     container9 = st.container()
     container9.write("""
     <div style="text-align: justify;">
-    <span style='color: black; font-weight: bold;'>Robbie Williams</span> </br>
+    <span style='color: black; font-size: 18px; font-weight: bold;'>Robbie Williams</span> </br>
     <a href = 'mailto: rwilliamsfarms@bellsouth.net'> Send Email </a> </br> 
-    <span style='color: black; font-weight: bold;'>Mohammad Shamim</span> 
+    <span style='color: black; font-size: 18px;font-weight: bold;'>Mohammad Shamim</span> 
     </br>
     <a href = "mailto: shamim.one@outlook.com;">Send Email</a>
 
