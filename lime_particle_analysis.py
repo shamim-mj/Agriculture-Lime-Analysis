@@ -301,8 +301,8 @@ if selected1=="Calculator":
         })
 
         # Lets give an option to upload an excel file
-        st.markdown("<h3 style='text-align: center; color: white; font-size:25px; background-color: #0033A0;'>Upload a CSV file</h3>", unsafe_allow_html=True)
-        uploadcond = st.checkbox("**Check to read the instruction and proceed!**")
+        st.markdown("<h6 style='text-align: left; font-size:25px; --hover-color: #eee '>Upload a CSV file</h6>", unsafe_allow_html=True)
+        uploadcond = st.checkbox("**_Check to read instructions and proceed!_**", label_visibility='collapsed')
         uploadfile = None
         if uploadcond:
             st.write("**:blue[Your file should look like this. The number of rows depends on the number of your sample]**")
