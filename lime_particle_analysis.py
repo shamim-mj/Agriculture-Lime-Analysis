@@ -139,10 +139,10 @@ if selected1=="Calculator":
         icons=[], 
         menu_icon="cast", default_index=0, orientation="horizontal",
         styles={
-            "container": {"padding": "0!important", "background-color": "#fafafa"},
+            "container": {"padding": "0!important", "background-color": "#ffe6e6"},
             "icon": {"color": "orange", "font-size": "20px"}, 
             "nav-link": {"font-size": "20px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-            "nav-link-selected": {"background-color": "#0033A0"},
+            "nav-link-selected": {"background-color": "#ff0000"},
         }
     )
 
@@ -156,7 +156,7 @@ if selected1=="Calculator":
     # Lets make the columns or slots dynamic
 
     # Telling the user wheather s/he wants to enter the data manually (convinient for smartphone)
-    st.markdown("<h3 style='text-align: center; color: white; font-size:25px; background-color: #0033A0; margin: 0px'>Manual Input</h3>", unsafe_allow_html=True)
+    # st.markdown("<h3 style='text-align: center; color: white; font-size:25px; background-color: #0033A0; margin: 0px'>Manual Input</h3>", unsafe_allow_html=True)
     st.markdown("<h5 style='text-align: center; color: blue;'>" "</h5>", unsafe_allow_html=True)
 
     # Here, I am setting a condition if the data is in percentage or weight
@@ -180,11 +180,11 @@ if selected1=="Calculator":
 
         st.markdown("<h4 style='text-align: center; color: white; background-color: #0033A0;'>Soil Data </h4>", unsafe_allow_html=True)
         s_container = st.container()
-        c1, c2, c3, c4= s_container.columns(4)
+        c1, c2, c3= s_container.columns(3)
         wph = c1.slider('**Soil Water pH:**', min_value=4.0, max_value=8.0, value=5.8, step=0.1, key='wph', format="%.1f")
         bph = c2.slider('**Buffer pH (Sikora-2):**', min_value=4.0, max_value=8.0, value=6.5, step=0.1, key='bph', format="%.1f")
         tph= c3.slider('**Target pH**', min_value=4.0, max_value=8.0, value=6.5, step=0.1, key='tph', format="%.1f")
-        soilW = c4.slider('**Soil Weight (g):**',min_value=8.0, max_value=14.0, value=12.0, step=0.1, key='sw', format="%.1f")
+        # soilW = c4.slider('**Soil Weight (g):**',min_value=8.0, max_value=14.0, value=12.0, step=0.1, key='sw', format="%.1f")
 
         # This datafram is dynamic and therefore making the charts easy to plot
 
@@ -198,8 +198,8 @@ if selected1=="Calculator":
         })
 
         # Lets give an option to upload an excel file.
-        st.markdown("<h3 style='text-align: center; color: white; font-size:25px; background-color: #0033A0;'>Upload a CSV file</h3>", unsafe_allow_html=True)
-        uploadcond = st.checkbox("**_Check to read instructions and proceed!_**")
+        st.markdown("<h6 style='text-align: left; font-size:25px; --hover-color: #eee '>Upload a CSV file</h6>", unsafe_allow_html=True)
+        uploadcond = st.checkbox("**_Check to read instructions and proceed!_**", label_visibility='collapsed')
         uploadfile = None
         if uploadcond:
             st.write("**:blue[Your file should look like this. The number of rows depends on the number of your samples]**")
@@ -247,7 +247,7 @@ if selected1=="Calculator":
         SWPH = wph
         BPH = bph
         TPH = tph
-        SW  = soilW
+        SW  = 12
         RNV = df.RNV
         part1 = -1.1 *(TPH-SWPH)*(BPH-7.55)
         part2  = (BPH -(1.1*SWPH)+1.47)
@@ -284,11 +284,11 @@ if selected1=="Calculator":
 
         st.markdown("<h4 style='text-align: center; color: white; background-color: #0033A0;'>Soil Data </h4>", unsafe_allow_html=True)
         s_container = st.container()
-        c1, c2, c3, c4= s_container.columns(4)
+        c1, c2, c3= s_container.columns(3)
         wph = c1.slider('**Soil Water pH:**', min_value=4.0, max_value=8.0, value=5.8, step=0.1, key='wph', format="%.1f")
         bph = c2.slider('**Buffer pH (Sikora-2):**', min_value=4.0, max_value=8.0, value=6.5, step=0.1, key='bph', format="%.1f")
         tph= c3.slider('**Target pH**', min_value=4.0, max_value=8.0, value=6.5, step=0.1, key='tph', format="%.1f")
-        soilW = c4.slider('**Soil Weight (g):**',min_value=8.0, max_value=14.0, value=12.0, step=0.1, key='sw', format="%.1f")
+        # soilW = c4.slider('**Soil Weight (g):**',min_value=8.0, max_value=14.0, value=12.0, step=0.1, key='sw', format="%.1f")
 
         # This datafram is dynamic and therefore making the charts easy to plot
 
@@ -348,7 +348,7 @@ if selected1=="Calculator":
         SWPH =wph
         BPH = bph
         TPH = tph
-        SW  = soilW
+        SW  = 12
         RNV = df.RNV
         part1 = -1.1 *(TPH-SWPH)*(BPH-7.55)
         part2  = (BPH -(1.1*SWPH)+1.47)
