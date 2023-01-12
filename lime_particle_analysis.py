@@ -10,7 +10,7 @@ st.set_page_config(
     page_title="Lime Calculator with Charts",
     page_icon=None,
     layout="centered",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 
@@ -18,8 +18,8 @@ st.set_page_config(
 
 # 3. CSS style definitions
 with st.sidebar:
-    selected1 = option_menu("", ["Home", "Calculator", "Contact"], 
-        icons=['house', 'calculator', 'person lines fill'], 
+    selected1 = option_menu("", ["Calculator", "Contact"], 
+        icons=['calculator', 'person lines fill'], 
         menu_icon="cast", default_index=0, #orientation="horizontal",
         styles={
             "container": {"padding": "0!important", "background-color": "#fafafa"},
@@ -61,56 +61,56 @@ st.markdown(
 
 # Lets add a title to our App 
 # add some information
-if selected1=='Home':
-    st.markdown("<h1 style='background-color: #0033A0; text-align: center; color: 	white;'>Lime Calculator with Color Charts</h1>", unsafe_allow_html=True)
-    st.markdown("<h4 style='background-color: #0033A0;text-align: center; color: 	white;'>Particle Analysis, CCE, RNV, pH, Buffer pH, Rates, and Cost/Acre</h4>", unsafe_allow_html=True)
-    st.write("")
-    image1, image2 = st.columns(2)
-    img1 = plt.imread('Lime particles .jpg')
-    img2 = plt.imread('Sieves1.jpg')
-    image1.image(img2)
-    image2.image(img1)
-    st.write("")
-    st.markdown("<h2 style='background-color: #0033A0; text-align: center; color: 	white;'>Instructions</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style='background-color: white; text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
-    container2 = st.container()
-    container2.markdown("""
-    <div style="text-align: justify;">
-    <span style='color: #0033A0; font-weight: bold;'>A) Using the App:</span> This web App has three menus. In the <span style='color: blue; font-weight: bold;'>Home </span> manu, you can read about the App.
-    The main menu is the <span style='color: #0033A0; font-weight: bold;'>Calculator </span> where you can input your data and calculate your samples for 
-    particle size,  RNV, lime amount recommendation, its application cost  per acre, and see the charts. Manually,  you can open up to 5 slots for your agricultural lime analysis. For example, if you are interested in analyzing 
-    3 lime sources, you will select 3 from  the sample selector which is titled as "# of Samples". 
-    After that, the form will show 3 columns for you. You can populate the cells and see the charts. Alternatively, you can upload a comma separated values (.csv) file with unlimited samples.  <span style='color: black; font-weight: bold;'> Be sure to have your Target pH higher than your soil water pH.</span>
-    The default color of the charts is "Dark2" but you can choose from  over 100 colors from the drop-down list. </br>To save a chart to your computer, right-click on the chart 
-    and then choose "save image as" or "copy image" and then paste it as a picture in other places (press and hold in the case of a smartphone or iPad). To save data, 
-    you will need to go to the <span style='color: #0033A0; font-weight: bold;'>Download </span> section in the "Calculator" menu. By clicking the download button,  
-    the data will be saved to your machine automatically. In the data, you will see many columns. "Initial" is the initial weight of the sample, "gten" means the amount that did not pass through the #10 Sieve, 
-    "lten" is the amount that passed through the #10 Sieve, "lfifty" is the amount that passed through the #50 Sieve, 
-    "wph" is soil water pH, "bph" is soil buffer pH, "cce" is Culcium Carbonate Equivalent (CCE), "Zero%_eff" is the percent of lime with particle size bigger than #10 Sieve. "Fifty%_eff" is the percent of lime with particle size smaller than #10 Sieve and bigger than #50 Seive, and "Hund%_eff" is the percent of lime that is 100 
-    percent effective or the percent of lime with particle size smaller than #50 Sieve. RNV is the relative neutralizing value, "Bulk_rec" is the amount of lime need to be applied and "Cost" is the cost per acre.
-    If you want all slots opened side by side, please rotate the screen of your mobile device. If you want to change the theme, Go to Setting> Theme> and then choose one from the drop-down list. </br> 
+# if selected1=='Home':
+#     st.markdown("<h1 style='background-color: #0033A0; text-align: center; color: 	white;'>Lime Calculator with Color Charts</h1>", unsafe_allow_html=True)
+#     st.markdown("<h4 style='background-color: #0033A0;text-align: center; color: 	white;'>Particle Analysis, CCE, RNV, pH, Buffer pH, Rates, and Cost/Acre</h4>", unsafe_allow_html=True)
+#     st.write("")
+#     image1, image2 = st.columns(2)
+#     img1 = plt.imread('Lime particles .jpg')
+#     img2 = plt.imread('Sieves1.jpg')
+#     image1.image(img2)
+#     image2.image(img1)
+#     st.write("")
+#     st.markdown("<h2 style='background-color: #0033A0; text-align: center; color: 	white;'>Instructions</h1>", unsafe_allow_html=True)
+#     st.markdown("<h3 style='background-color: white; text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
+#     container2 = st.container()
+#     container2.markdown("""
+#     <div style="text-align: justify;">
+#     <span style='color: #0033A0; font-weight: bold;'>A) Using the App:</span> This web App has three menus. In the <span style='color: blue; font-weight: bold;'>Home </span> manu, you can read about the App.
+#     The main menu is the <span style='color: #0033A0; font-weight: bold;'>Calculator </span> where you can input your data and calculate your samples for 
+#     particle size,  RNV, lime amount recommendation, its application cost  per acre, and see the charts. Manually,  you can open up to 5 slots for your agricultural lime analysis. For example, if you are interested in analyzing 
+#     3 lime sources, you will select 3 from  the sample selector which is titled as "# of Samples". 
+#     After that, the form will show 3 columns for you. You can populate the cells and see the charts. Alternatively, you can upload a comma separated values (.csv) file with unlimited samples.  <span style='color: black; font-weight: bold;'> Be sure to have your Target pH higher than your soil water pH.</span>
+#     The default color of the charts is "Dark2" but you can choose from  over 100 colors from the drop-down list. </br>To save a chart to your computer, right-click on the chart 
+#     and then choose "save image as" or "copy image" and then paste it as a picture in other places (press and hold in the case of a smartphone or iPad). To save data, 
+#     you will need to go to the <span style='color: #0033A0; font-weight: bold;'>Download </span> section in the "Calculator" menu. By clicking the download button,  
+#     the data will be saved to your machine automatically. In the data, you will see many columns. "Initial" is the initial weight of the sample, "gten" means the amount that did not pass through the #10 Sieve, 
+#     "lten" is the amount that passed through the #10 Sieve, "lfifty" is the amount that passed through the #50 Sieve, 
+#     "wph" is soil water pH, "bph" is soil buffer pH, "cce" is Culcium Carbonate Equivalent (CCE), "Zero%_eff" is the percent of lime with particle size bigger than #10 Sieve. "Fifty%_eff" is the percent of lime with particle size smaller than #10 Sieve and bigger than #50 Seive, and "Hund%_eff" is the percent of lime that is 100 
+#     percent effective or the percent of lime with particle size smaller than #50 Sieve. RNV is the relative neutralizing value, "Bulk_rec" is the amount of lime need to be applied and "Cost" is the cost per acre.
+#     If you want all slots opened side by side, please rotate the screen of your mobile device. If you want to change the theme, Go to Setting> Theme> and then choose one from the drop-down list. </br> 
     
-    <span style='color: #0033A0; font-weight: bold;'>B) Calculating RNV:</span> To know the relative neutralizing value (RNV) of the lime, you will need to know the value of
-    Calcium Carbonate Equivalent (CCE) and the particle size fraction. 
-    You can obtain this information from yuor  lime supplier or from various state and university lab reports. For example, <a href = "https://www.rs.uky.edu/soil/technical_info/">Rock Quarry Lime Reports - University of Kentucky</a>
-    This app is set up for #10 and #50 sieves and accepts lime particle size fractions in (%) of total or individual  sieve weights. The University of Kentucky 
-    uses #10 and #50 sieves for lime particle analysis. Other testing labs may use different sieve sets. For example, #8, #20,  #60, and #100 sieves. 
-    If you have access to a sieve shaker and wish to separate and weigh your own particle size fractions, dry the lime overnight at 230 degrees F (110 degress C).
-    Graphs are  automatically created. You can view and save graphs and download the data as a CSV file. 
-    You can view and save graphs and download the data as a CSV file.
-    </div>
-        """, unsafe_allow_html=True)
+#     <span style='color: #0033A0; font-weight: bold;'>B) Calculating RNV:</span> To know the relative neutralizing value (RNV) of the lime, you will need to know the value of
+#     Calcium Carbonate Equivalent (CCE) and the particle size fraction. 
+#     You can obtain this information from yuor  lime supplier or from various state and university lab reports. For example, <a href = "https://www.rs.uky.edu/soil/technical_info/">Rock Quarry Lime Reports - University of Kentucky</a>
+#     This app is set up for #10 and #50 sieves and accepts lime particle size fractions in (%) of total or individual  sieve weights. The University of Kentucky 
+#     uses #10 and #50 sieves for lime particle analysis. Other testing labs may use different sieve sets. For example, #8, #20,  #60, and #100 sieves. 
+#     If you have access to a sieve shaker and wish to separate and weigh your own particle size fractions, dry the lime overnight at 230 degrees F (110 degress C).
+#     Graphs are  automatically created. You can view and save graphs and download the data as a CSV file. 
+#     You can view and save graphs and download the data as a CSV file.
+#     </div>
+#         """, unsafe_allow_html=True)
 
-# A refernce to the paper I used for buffer
-    st.markdown("<h3 style='background-color: white; text-align: left; color: #0033A0;'>Reference</h1>", unsafe_allow_html=True)
-    container8 = st.container()
-    container8.write("""
-    <div style="text-align: justify;">
-    <span style='color: black; text-align: justify'>Ritchey, E.L., Murdock, L.W., Ditsch, D., and McGrath, J.M. 2016. Agicultural Lime Recommendation Based on Lime Quality. Plant and Soil Science.
-    F.J. Sikora, Division of Regolatory Services, College of Agriculture, Food and Environment, University of Kentucky.</span>
-    <a href = 'http://www2.ca.uky.edu/agcomm/pubs/id/id163/id163.pdf'> Click here to read!</a> </div>
-    """, 
-    unsafe_allow_html = True)
+# # A refernce to the paper I used for buffer
+#     st.markdown("<h3 style='background-color: white; text-align: left; color: #0033A0;'>Reference</h1>", unsafe_allow_html=True)
+#     container8 = st.container()
+#     container8.write("""
+#     <div style="text-align: justify;">
+#     <span style='color: black; text-align: justify'>Ritchey, E.L., Murdock, L.W., Ditsch, D., and McGrath, J.M. 2016. Agicultural Lime Recommendation Based on Lime Quality. Plant and Soil Science.
+#     F.J. Sikora, Division of Regolatory Services, College of Agriculture, Food and Environment, University of Kentucky.</span>
+#     <a href = 'http://www2.ca.uky.edu/agcomm/pubs/id/id163/id163.pdf'> Click here to read!</a> </div>
+#     """, 
+#     unsafe_allow_html = True)
 
 
 if selected1=="Calculator":
@@ -205,7 +205,7 @@ if selected1=="Calculator":
             st.write("**:blue[Your file should look like this. The number of rows depends on the number of your samples]**")
             # A demo file used to show the users how their file should be
             st.dataframe(pd.DataFrame({"Lime Source":"Sample1", "Initial (g)": 100, "> #10 (g)": 10, "< #10": 90,"< #50 (g)":60,
-            "cce": 97.8, "bph":5.4, 'price': 20}, index =[1]))
+            "cce": 97.8,  'price': 20}, index =[1]))
             subcontainer1= st.container()
             # Lets give some instructions to users how to create file and how it should look like
             subcontainer1.markdown("""
@@ -263,7 +263,7 @@ if selected1=="Calculator":
         #         df['Bulk_Rec'] = (3.62-(0.734*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)))*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)/(RNV/100)
         # else:
         #     df['Bulk_Rec'] = 0
-        df['Bulk_Rec'] = pure_lime/df.RNV*100
+        df['Bulk_Rec'] = pure_lime/df.RNV*100 if TPH>SWPH else df.RNV *0
         df['Cost'] = df.Bulk_Rec * df.price
 
 # Lab results based on percentage
@@ -335,7 +335,7 @@ if selected1=="Calculator":
             df = pd.read_csv(uploadfile)
             df.columns= ["Quarry", "gten", "lten", "lfifty", "wph", "bph", 'cce', 'price']
             st.write(df.head())
-            st.caption("**:red[Here are the first five rows of your data]**")
+            st.caption("**:red[Here are the first few rows of your data]**")
         else:
             pass
 
@@ -353,7 +353,7 @@ if selected1=="Calculator":
         part1 = -1.1 *(TPH-SWPH)*(BPH-7.55)
         part2  = (BPH -(1.1*SWPH)+1.47)
         part3 = 13.75/SW
-        ELR = part1/part2*part3
+        ELR = part1/part2*part3 #Equation LR
         cffa = [(3.62 - (0.734*ELR)) if ELR <=3 else 1.42][0]
         pure_lime = cffa*ELR 
 
@@ -364,7 +364,7 @@ if selected1=="Calculator":
         #         df['Bulk_Rec'] = (3.62-(0.734*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)))*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)/(RNV/100)
         # else:
         #     df['Bulk_Rec'] = 0
-        df['Bulk_Rec'] = pure_lime/df.RNV*100
+        df['Bulk_Rec'] = pure_lime/df.RNV*100 if TPH > SWPH else df.RNV * 0
         df['Cost'] = df.Bulk_Rec * df.price
         
 
@@ -374,7 +374,7 @@ if selected1=="Calculator":
     # So one can pick up a color s/he wants
     st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
-    st.markdown("<h2 style='background-color: #0033A0; text-align: center; color: 	white;'>Lime Particles adn RNV</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='background-color: #0033A0; text-align: center; color: 	white;'>Lime Particles and RNV</h2>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
     color_cont1, color_cont2 = st.columns([1, 2])
     color_cont1.markdown("<h5 style='text-align: center; color: white; background-color: #0033A0;'>Choose color palette</h5>", unsafe_allow_html=True)
@@ -465,7 +465,7 @@ if selected1=="Calculator":
     st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
 
-    st.markdown("<h5 style='background-color: #0033A0; font-size:35px; text-align: center; color: 	white;'>Lime Recommendation and Its Cost</h5>", unsafe_allow_html=True)
+    st.markdown("<h5 style='background-color: #0033A0; font-size:35px; text-align: center; color: 	white;'>Lime Recommendation and Application Cost</h5>", unsafe_allow_html=True)
 
     # Here I also want to give an option 
     st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
@@ -567,3 +567,15 @@ if selected1 =='Contact':
             with open(file_name) as f:
                 contact_col2 .markdown(f"<style>{f.read()}</style>", unsafe_allow_html = True)
         local_css("style.css")
+        # A refernce to the paper I used for buffer
+    st.markdown("<h3 style='background-color: white; text-align: left; color: #0033A0;'>""</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style='background-color: white; text-align: left; color: #0033A0;'>Read More...</h1>", unsafe_allow_html=True)
+    container8 = st.container()
+    container8.write("""
+    <div style="text-align: justify;">
+    <a href = 'http://www2.ca.uky.edu/agcomm/pubs/id/id163/id163.pdf'> Agicultural Lime Recommendation Based on Lime Quality </a> </br>
+     <a href = "https://www.rs.uky.edu/soil/technical_info/">Rock Quarry Lime Reports - University of Kentucky</a>
+    
+    </div>
+    """, 
+    unsafe_allow_html = True)
