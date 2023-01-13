@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -10,7 +11,7 @@ st.set_page_config(
     page_title="Lime Calculator with Charts",
     page_icon=None,
     layout="centered",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
 
@@ -18,8 +19,8 @@ st.set_page_config(
 
 # 3. CSS style definitions
 with st.sidebar:
-    selected1 = option_menu("", ["Calculator", "Contact"], 
-        icons=['calculator', 'person lines fill'], 
+    selected1 = option_menu("", ["Home","Calculator", "Contact"], 
+        icons=['house', 'calculator', 'person lines fill'], 
         menu_icon="cast", default_index=0, #orientation="horizontal",
         styles={
             "container": {"padding": "0!important", "background-color": "#fafafa"},
@@ -61,16 +62,36 @@ st.markdown(
 
 # Lets add a title to our App 
 # add some information
-# if selected1=='Home':
-#     st.markdown("<h1 style='background-color: #0033A0; text-align: center; color: 	white;'>Lime Calculator with Color Charts</h1>", unsafe_allow_html=True)
-#     st.markdown("<h4 style='background-color: #0033A0;text-align: center; color: 	white;'>Particle Analysis, CCE, RNV, pH, Buffer pH, Rates, and Cost/Acre</h4>", unsafe_allow_html=True)
-#     st.write("")
-#     image1, image2 = st.columns(2)
-#     img1 = plt.imread('Lime particles .jpg')
-#     img2 = plt.imread('Sieves1.jpg')
-#     image1.image(img2)
-#     image2.image(img1)
-#     st.write("")
+if selected1=='Home':
+    st.markdown("<h1 style='background-color: #0033A0; text-align: center; color: 	white;'>Lime Calculator with Color Charts</h1>", unsafe_allow_html=True)
+    st.markdown("<h4 style='background-color: #0033A0;text-align: center; color: 	white;'>Particle Analysis, CCE, RNV, pH, Buffer pH, Rates, and Cost/Acre</h4>", unsafe_allow_html=True)
+    st.markdown(
+    """<div style="text-align: justify;">
+    All rights reserved. </br>
+    This web application was developed by <a href = 'https://www.linkedin.com/in/mohammad-jan-shamim-693136112/'>Mohammad Shamim</a>, and Robbie Williams in Henderson, Kentucky, USA.</br>
+    You can perfom your calculation either by manually inserting values into the cells on the "Calculator" Menu or by uploading the values in a CSV file. 
+    The manual form allows up to five lime sources calculations. 
+    Uploading an CSV file allows an unlimited number of lime sources calculations. </br>
+    Be sure to check boxes/toggle buttons for desired calculations as graphs. 
+    This web app uses Sikora-2 buffer for determining the quantity and cost of lime to be applied in an acre. </br>
+    We are greatly indebted to His Excellency <a href =' https://pss.ca.uky.edu/person/frank-sikora'>Dr. Frank Sikora</a>, 
+    Adjunct Associate Professor and Director of Laboratories and Soils Program Regulatory Services, the University of  Kentucky, USA, for his invaluable input in this Web App. </br>
+    </br>
+    Read more...</br>
+     <a href = 'http://www2.ca.uky.edu/agcomm/pubs/id/id163/id163.pdf'> Agicultural Lime Recommendation Based on Lime Quality </a> </br>
+     <a href = "https://www.rs.uky.edu/soil/technical_info/">Rock Quarry Lime Reports - University of Kentucky</a>
+    </div>
+        """, unsafe_allow_html=True)
+    
+    st.write("")
+    image1, image2 = st.columns(2)
+    img1 = plt.imread('Lime particles .jpg')
+    img2 = plt.imread('Sieves1.jpg')
+    image1.image(img2)
+    image2.image(img1)
+
+
+    
 #     st.markdown("<h2 style='background-color: #0033A0; text-align: center; color: 	white;'>Instructions</h1>", unsafe_allow_html=True)
 #     st.markdown("<h3 style='background-color: white; text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
 #     container2 = st.container()
@@ -515,21 +536,17 @@ if selected1=="Calculator":
     st.caption("**:blue[This dataframe is interactive, You can scroll left-to-right or top-to-bottom. Please download the file before navigating to another manu. You will lose the data otherwise!]**")
 
 # Preparing data to download
-    df = df.to_csv().encode('utf-8')
+    df1 = df.to_csv().encode('utf-8')
     # this checkbox will allow us to download data
     st.markdown("### **:blue[Download!]**")
     st.download_button(
         key = 'b_csv',
         label = "Download data as csv file",
-        data = df,
+        data = df1,
         file_name = f"Lime_particle_analysis_[{date}]_[{time}].csv",
         mime = 'text/csv'
     )
     st.caption(":red[Note that a default dataset, corresponding to the number of open slots, is downloaded if you don't insert values in the form or don't upload  a file]")
-    st.markdown("Generate Report")
-
-# Instructions are important. If someone wants to read it, they can check the box. else the instructions are 
-# hidden, which makes the App look cleaner.
 
         
 # If someone wants to tell us about it or give us suggestions
@@ -567,15 +584,3 @@ if selected1 =='Contact':
             with open(file_name) as f:
                 contact_col2 .markdown(f"<style>{f.read()}</style>", unsafe_allow_html = True)
         local_css("style.css")
-        # A refernce to the paper I used for buffer
-    st.markdown("<h3 style='background-color: white; text-align: left; color: #0033A0;'>""</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style='background-color: white; text-align: left; color: #0033A0;'>Read More...</h1>", unsafe_allow_html=True)
-    container8 = st.container()
-    container8.write("""
-    <div style="text-align: justify;">
-    <a href = 'http://www2.ca.uky.edu/agcomm/pubs/id/id163/id163.pdf'> Agicultural Lime Recommendation Based on Lime Quality </a> </br>
-     <a href = "https://www.rs.uky.edu/soil/technical_info/">Rock Quarry Lime Reports - University of Kentucky</a>
-    
-    </div>
-    """, 
-    unsafe_allow_html = True)
