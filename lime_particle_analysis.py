@@ -354,7 +354,7 @@ if selected1=="Calculator":
         if uploadfile is not None:
             st.success("**File uploaded successfully!**")
             df = pd.read_csv(uploadfile)
-            df.columns= ["Quarry", "gten", "lten", "lfifty", "wph", "bph", 'cce', 'price']
+            df.columns= ["Quarry", "gten", "lten", "lfifty", 'cce', 'price']
             st.write(df.head())
             st.caption("**:red[Here are the first few rows of your data]**")
         else:
