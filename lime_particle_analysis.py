@@ -222,70 +222,73 @@ if selected1=="Calculator":
         st.markdown("<h6 style='text-align: left; font-size:25px; --hover-color: #eee '>Upload a CSV file</h6>", unsafe_allow_html=True)
         uploadcond = st.checkbox("**_Check to read instructions and proceed!_**", label_visibility='collapsed')
         uploadfile = None
-        if uploadcond:
-            st.write("**:blue[Your file should look like this. The number of rows depends on the number of your samples]**")
-            # A demo file used to show the users how their file should be
-            st.dataframe(pd.DataFrame({"Lime Source":"Sample1", "Initial (g)": 100, "> #10 (g)": 10, "< #10": 90,"< #50 (g)":60,
-            "cce": 97.8,  'price': 20}, index =[1]))
-            subcontainer1= st.container()
-            # Lets give some instructions to users how to create file and how it should look like
-            subcontainer1.markdown("""
-            <div style="text-align: justify;">
-            <span style='color: #0033A0; font-weight: bold; '>Tips:</span> Your file must be an excel.csv file with a tabular format. To create a CSV file, 
-            open excel, spreadsheet (Google), or numbers (Mac). The first row must be the header row. 
-            The file must have "7 columns" in order of "Column A: Lime Source", "Column B: Initial amount (g) of lime sample", "Column C: The amount (g) of lime retained 
-            in #10 Sieve", "Column D: The amount (g) of lime passed through #10 Sieve", "Column E: The amount (g) of lime passed through #50 Sieve", 
-            "Column F: CCE", and "Column G: price per ton". You can give any name to the headers. If the water pH and buffer pH are unknown, 
-            use default values of 4.5 and 5.5 for all your samples, respectively. The default value of CCE is 90 and the default value of price is 20. 
-            Once you insert values, press Ctrl + S or cmd + S. A file saving window will appear. Name your file and change the extension of 
-            your file from ".xlsx" to ".csv" and then save it. 
-            Keep in mind that in the case of default values, the calculations and graphs for the default parameters, as you know, are incorrect.
-            Default values are used to run the model smoothly. They have no scientific meaning. If an "error" 
-            occurs, please double check that that you have selected the correct type of data (weight based or percentage-based) at the 
-            top of the App and check if the number of columns and the extension of the file is correct.
-            </div>
-            """, unsafe_allow_html=True)
-            uploadfile = st.file_uploader("")
-        else:
-            pass
-        # Lets give a condition if the upload file exist or not. If it exists then make it read it. 
-        if uploadfile is not None:
-            st.success("**File uploaded successfully!**")
-            df = pd.read_csv(uploadfile)
-            df.columns= ["Quarry", "initial", "gten", "lten", "lfifty", 'cce', 'price']
-            st.write(df.head())
-            st.caption("**:red[Here are the first five rows of your data]**")
-        else:
-            pass
+        try:
+            if uploadcond:
+                st.write("**:blue[Your file should look like this. The number of rows depends on the number of your samples]**")
+                # A demo file used to show the users how their file should be
+                st.dataframe(pd.DataFrame({"Lime Source":"Sample1", "Initial (g)": 100, "> #10 (g)": 10, "< #10": 90,"< #50 (g)":60,
+                "cce": 97.8,  'price': 20}, index =[1]))
+                subcontainer1= st.container()
+                # Lets give some instructions to users how to create file and how it should look like
+                subcontainer1.markdown("""
+                <div style="text-align: justify;">
+                <span style='color: #0033A0; font-weight: bold; '>Tips:</span> Your file must be an excel.csv file with a tabular format. To create a CSV file, 
+                open excel, spreadsheet (Google), or numbers (Mac). The first row must be the header row. 
+                The file must have "7 columns" in order of "Column A: Lime Source", "Column B: Initial amount (g) of lime sample", "Column C: The amount (g) of lime retained 
+                in #10 Sieve", "Column D: The amount (g) of lime passed through #10 Sieve", "Column E: The amount (g) of lime passed through #50 Sieve", 
+                "Column F: CCE", and "Column G: price per ton". You can give any name to the headers. If the water pH and buffer pH are unknown, 
+                use default values of 4.5 and 5.5 for all your samples, respectively. The default value of CCE is 90 and the default value of price is 20. 
+                Once you insert values, press Ctrl + S or cmd + S. A file saving window will appear. Name your file and change the extension of 
+                your file from ".xlsx" to ".csv" and then save it. 
+                Keep in mind that in the case of default values, the calculations and graphs for the default parameters, as you know, are incorrect.
+                Default values are used to run the model smoothly. They have no scientific meaning. If an "error" 
+                occurs, please double check that that you have selected the correct type of data (weight based or percentage-based) at the 
+                top of the App and check if the number of columns and the extension of the file is correct.
+                </div>
+                """, unsafe_allow_html=True)
+                uploadfile = st.file_uploader("")
+            else:
+                pass
+            # Lets give a condition if the upload file exist or not. If it exists then make it read it. 
+            if uploadfile is not None:
+                st.success("**File uploaded successfully!**")
+                df = pd.read_csv(uploadfile)
+                df.columns= ["Quarry", "initial", "gten", "lten", "lfifty", 'cce', 'price']
+                st.write(df.head())
+                st.caption("**:red[Here are the first five rows of your data]**")
+            else:
+                pass
 
 
-        # adding  columns with new calculations
-        df["Zero%_eff"] = (df.gten/df.initial)*100
-        df['Fifty%_eff'] = ((((df.lten-df.lfifty)))/df.initial)*100
-        df['Hund%_eff'] = (df.lfifty/df.initial)*100
-        df["RNV"] = df.cce/100.00*((((df.lten-df.lfifty)/2.0)+df.lfifty)/df.initial)*100
+            # adding  columns with new calculations
+            df["Zero%_eff"] = (df.gten/df.initial)*100
+            df['Fifty%_eff'] = ((((df.lten-df.lfifty)))/df.initial)*100
+            df['Hund%_eff'] = (df.lfifty/df.initial)*100
+            df["RNV"] = df.cce/100.00*((((df.lten-df.lfifty)/2.0)+df.lfifty)/df.initial)*100
 
-        SWPH = wph
-        BPH = bph
-        TPH = tph
-        SW  = 12
-        RNV = df.RNV
-        part1 = -1.1 *(TPH-SWPH)*(BPH-7.55)
-        part2  = (BPH -(1.1*SWPH)+1.47)
-        part3 = 13.75/SW
-        ELR = part1/part2*part3
-        cffa = [(3.62 - (0.734*ELR)) if ELR <=3 else 1.42][0]
-        pure_lime = cffa*ELR 
+            SWPH = wph
+            BPH = bph
+            TPH = tph
+            SW  = 12
+            RNV = df.RNV
+            part1 = -1.1 *(TPH-SWPH)*(BPH-7.55)
+            part2  = (BPH -(1.1*SWPH)+1.47)
+            part3 = 13.75/SW
+            ELR = part1/part2*part3
+            cffa = [(3.62 - (0.734*ELR)) if ELR <=3 else 1.42][0]
+            pure_lime = cffa*ELR 
 
-        # if TPH> SWPH:
-        #     if 3<(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW):
-        #         df['Bulk_Rec'] = 1.42*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)/RNV
-        #     else:
-        #         df['Bulk_Rec'] = (3.62-(0.734*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)))*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)/(RNV/100)
-        # else:
-        #     df['Bulk_Rec'] = 0
-        df['Bulk_Rec'] = pure_lime/df.RNV*100 if TPH>SWPH else df.RNV *0
-        df['Cost'] = df.Bulk_Rec * df.price
+            # if TPH> SWPH:
+            #     if 3<(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW):
+            #         df['Bulk_Rec'] = 1.42*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)/RNV
+            #     else:
+            #         df['Bulk_Rec'] = (3.62-(0.734*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)))*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)/(RNV/100)
+            # else:
+            #     df['Bulk_Rec'] = 0
+            df['Bulk_Rec'] = pure_lime/df.RNV*100 if TPH>SWPH else df.RNV *0
+            df['Cost'] = df.Bulk_Rec * df.price
+        except:
+            st.markdown('### **:red[It seems your file is not prepared correctly.  Please revise it and try again]**')
 
 # Lab results based on percentage
     if percent_weight == "Lab Results (Percentage)":
@@ -325,229 +328,233 @@ if selected1=="Calculator":
         st.markdown("<h6 style='text-align: left; font-size:25px; --hover-color: #eee '>Upload a CSV file</h6>", unsafe_allow_html=True)
         uploadcond = st.checkbox("**_Check to read instructions and proceed!_**", label_visibility='collapsed')
         uploadfile = None
-        if uploadcond:
-            st.write("**:blue[Your file should look like this. The number of rows depends on the number of your sample]**")
-            # A demo data frame
-            st.dataframe(pd.DataFrame({"Lime Source":"Sample1","> #10 (%)": 10, "< #10 (%)":90,
-            "< #50 (%)": 60, "cce": 97.8, 'price': 20}, index =[1]))
-            subcontainer1= st.container()
-            # instruction on how to create a file
-            subcontainer1.markdown("""
-            <div style="text-align: justify;">
-            <span style='color: #0033A0; font-weight: bold;'>Tips:</span> Your file must be an excel.csv file with a tabular format. The first row must be the header row. 
-            The file must have "6 columns" in order of "Column A: Source names", "Column B: Percent of lime retained 
-            in #10 Sieve", "Column C: Percent of lime passed through #10 Sieve", "Column D: Percent of lime passed through #50 Sieve", 
-            "Column E: CCE", and "Column F: price per ton". Once you insert values, press Ctrl + S or cmd + S. A file saving window will appear. 
-            Name your file and change the extension of your file from ".xlsx" to ".csv" and then save it. 
-            You can give any name to headers. <br /> If the water pH and buffer pH are unknown, 
-            use the default values of 4.5 and 5.5 for all your samples, respectively. The default value of CCE is 90 and the default value of price is 20. 
-            The remaining columns are automatically calculated. In the case of default values, the calculations and graphs for the default parameters, as you know, are incorrect.
-            Default values are used to run the model smoothly. They have no scientific meaning. If an "error" 
-            occurs, please double check that you have selected the correct type of data (weight based or percentage-based) at the 
-            top of the App and check if the number of columns and the extension of the file is correct.
-            </div>
-            """, unsafe_allow_html=True)
-            uploadfile = st.file_uploader("")
-        else:
-            pass
-        # upload a file if it exists. Skip if it doesn't 
-        if uploadfile is not None:
-            st.success("**File uploaded successfully!**")
-            df = pd.read_csv(uploadfile)
-            df.columns= ["Quarry", "gten", "lten", "lfifty", 'cce', 'price']
-            st.write(df.head())
-            st.caption("**:red[Here are the first few rows of your data]**")
-        else:
-            pass
+        try:
+            if uploadcond:
+                st.write("**:blue[Your file should look like this. The number of rows depends on the number of your sample]**")
+                # A demo data frame
+                st.dataframe(pd.DataFrame({"Lime Source":"Sample1","> #10 (%)": 10, "< #10 (%)":90,
+                "< #50 (%)": 60, "cce": 97.8, 'price': 20}, index =[1]))
+                subcontainer1= st.container()
+                # instruction on how to create a file
+                subcontainer1.markdown("""
+                <div style="text-align: justify;">
+                <span style='color: #0033A0; font-weight: bold;'>Tips:</span> Your file must be an excel.csv file with a tabular format. The first row must be the header row. 
+                The file must have "6 columns" in order of "Column A: Source names", "Column B: Percent of lime retained 
+                in #10 Sieve", "Column C: Percent of lime passed through #10 Sieve", "Column D: Percent of lime passed through #50 Sieve", 
+                "Column E: CCE", and "Column F: price per ton". Once you insert values, press Ctrl + S or cmd + S. A file saving window will appear. 
+                Name your file and change the extension of your file from ".xlsx" to ".csv" and then save it. 
+                You can give any name to headers. <br /> If the water pH and buffer pH are unknown, 
+                use the default values of 4.5 and 5.5 for all your samples, respectively. The default value of CCE is 90 and the default value of price is 20. 
+                The remaining columns are automatically calculated. In the case of default values, the calculations and graphs for the default parameters, as you know, are incorrect.
+                Default values are used to run the model smoothly. They have no scientific meaning. If an "error" 
+                occurs, please double check that you have selected the correct type of data (weight based or percentage-based) at the 
+                top of the App and check if the number of columns and the extension of the file is correct.
+                </div>
+                """, unsafe_allow_html=True)
+                uploadfile = st.file_uploader("")
+            else:
+                pass
+            # upload a file if it exists. Skip if it doesn't 
+            if uploadfile is not None:
+                st.success("**File uploaded successfully!**")
+                df = pd.read_csv(uploadfile)
+                df.columns= ["Quarry", "gten", "lten", "lfifty", 'cce', 'price']
+                st.write(df.head())
+                st.caption("**:red[Here are the first few rows of your data]**")
+            else:
+                pass
 
 
-        # adding  columns with new calculations
-        df["Zero%_eff"] = df.gten
-        df['Fifty%_eff'] = (df.lten-df.lfifty)
-        df['Hund%_eff'] = df.lfifty
-        df["RNV"] = df.cce/100.00*(((df.lten-df.lfifty)/2.0)+df.lfifty)
-        SWPH =wph
-        BPH = bph
-        TPH = tph
-        SW  = 12
-        RNV = df.RNV
-        part1 = -1.1 *(TPH-SWPH)*(BPH-7.55)
-        part2  = (BPH -(1.1*SWPH)+1.47)
-        part3 = 13.75/SW
-        ELR = part1/part2*part3 #Equation LR
-        cffa = [(3.62 - (0.734*ELR)) if ELR <=3 else 1.42][0]
-        pure_lime = cffa*ELR 
+            # adding  columns with new calculations
+            df["Zero%_eff"] = df.gten
+            df['Fifty%_eff'] = (df.lten-df.lfifty)
+            df['Hund%_eff'] = df.lfifty
+            df["RNV"] = df.cce/100.00*(((df.lten-df.lfifty)/2.0)+df.lfifty)
+            SWPH =wph
+            BPH = bph
+            TPH = tph
+            SW  = 12
+            RNV = df.RNV
+            part1 = -1.1 *(TPH-SWPH)*(BPH-7.55)
+            part2  = (BPH -(1.1*SWPH)+1.47)
+            part3 = 13.75/SW
+            ELR = part1/part2*part3 #Equation LR
+            cffa = [(3.62 - (0.734*ELR)) if ELR <=3 else 1.42][0]
+            pure_lime = cffa*ELR 
 
-        # if TPH> SWPH:
-        #     if 3<(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW):
-        #         df['Bulk_Rec'] = 1.42*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)/RNV
-        #     else:
-        #         df['Bulk_Rec'] = (3.62-(0.734*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)))*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)/(RNV/100)
-        # else:
-        #     df['Bulk_Rec'] = 0
-        df['Bulk_Rec'] = pure_lime/df.RNV*100 if TPH > SWPH else df.RNV * 0
-        df['Cost'] = df.Bulk_Rec * df.price
-        
+            # if TPH> SWPH:
+            #     if 3<(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW):
+            #         df['Bulk_Rec'] = 1.42*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)/RNV
+            #     else:
+            #         df['Bulk_Rec'] = (3.62-(0.734*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)))*(-1.1*(TPH-SWPH)*(BPH-7.55)/(BPH-(1.1*SWPH)+1.47)*13.75/SW)/(RNV/100)
+            # else:
+            #     df['Bulk_Rec'] = 0
+            df['Bulk_Rec'] = pure_lime/df.RNV*100 if TPH > SWPH else df.RNV * 0
+            df['Cost'] = df.Bulk_Rec * df.price
+        except:
+            st.markdown('### **:red[It seems your file is not prepared correctly.  Please revise it and try again]**')
 
 
 # title for the fineness of the lime and its RNV
     # Lets create color pallete for our charts. There are over 100 color pallete to choose from
     # So one can pick up a color s/he wants
-    st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
-    st.markdown("<h2 style='background-color: #0033A0; text-align: center; color: 	white;'>Lime Particles and RNV</h2>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
-    color_cont1, color_cont2 = st.columns([1, 2])
-    color_cont1.markdown("<h5 style='text-align: center; color: white; background-color: #0033A0;'>Choose color palette</h5>", unsafe_allow_html=True)
+    try:
+        st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
+        st.markdown("<h2 style='background-color: #0033A0; text-align: center; color: 	white;'>Lime Particles and RNV</h2>", unsafe_allow_html=True)
+        st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
+        color_cont1, color_cont2 = st.columns([1, 2])
+        color_cont1.markdown("<h5 style='text-align: center; color: white; background-color: #0033A0;'>Choose color palette</h5>", unsafe_allow_html=True)
 
-    # colcol,_,_ = st.columns(3)
-    pallete = color_cont1.selectbox("pallete", ["Dark2","Accent", "Accent_r", "autumn", "Blues", "Blues_r", "bright", "BuGn", 
-    "BuGn_r", "BuPu", "BuPu_r", "binary", "binary_r", "bone", "bone_r", "bwr", "colorblind",  "cool", "coolwarm", "copper", "cubehelix", "dark",
-    "Dark2_r", "deep","GnBu", "GnBu_r", "gnuplot" ,"gnuplot2","Greens", "Greens_r", "Greys", "Greys_r" ,"gray", "hot", "hot_r" ,"jet_r","nipy_spectral", "muted",
-    "OrRd", "OrRd_r","ocean", "ocean_r" ,"Oranges", "Oranges_r", "PRGn", "PRGn_r", "pink", "pink_r" ,"Paired", "Paired_r","pastel", "Pastel1", "Pastel1_r",
-    "Pastel2", "Pastel2_r", "PiYG", "PiYG_r",  "PuBu", "PuBuGn", "PuBuGn_r", "PuBu_r", "PuOr", "PuOr_r", "PuRd", "PuRd_r",
-    "Purples", "Purples_r","rainbow","rainbow_r" ,"RdBu", "RdBu_r", "RdGy", "RdGy_r", "RdPu", "RdPu_r", "RdYlBu", "RdYlGn", "Reds", "Reds_r", "Set1", "Set1_r",
-    "Set2", "Set2_r", "Set3", "Set3_r", "Spectral", "Spectral_r" , "seismic", "seismic_r" ,"spring","spring_r", "summer","summer_r", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd",
-    "prism", "terrain", "terrain_r","winter", "winter_r"], label_visibility ='collapsed')
+        # colcol,_,_ = st.columns(3)
+        pallete = color_cont1.selectbox("pallete", ["Dark2","Accent", "Accent_r", "autumn", "Blues", "Blues_r", "bright", "BuGn", 
+        "BuGn_r", "BuPu", "BuPu_r", "binary", "binary_r", "bone", "bone_r", "bwr", "colorblind",  "cool", "coolwarm", "copper", "cubehelix", "dark",
+        "Dark2_r", "deep","GnBu", "GnBu_r", "gnuplot" ,"gnuplot2","Greens", "Greens_r", "Greys", "Greys_r" ,"gray", "hot", "hot_r" ,"jet_r","nipy_spectral", "muted",
+        "OrRd", "OrRd_r","ocean", "ocean_r" ,"Oranges", "Oranges_r", "PRGn", "PRGn_r", "pink", "pink_r" ,"Paired", "Paired_r","pastel", "Pastel1", "Pastel1_r",
+        "Pastel2", "Pastel2_r", "PiYG", "PiYG_r",  "PuBu", "PuBuGn", "PuBuGn_r", "PuBu_r", "PuOr", "PuOr_r", "PuRd", "PuRd_r",
+        "Purples", "Purples_r","rainbow","rainbow_r" ,"RdBu", "RdBu_r", "RdGy", "RdGy_r", "RdPu", "RdPu_r", "RdYlBu", "RdYlGn", "Reds", "Reds_r", "Set1", "Set1_r",
+        "Set2", "Set2_r", "Set3", "Set3_r", "Spectral", "Spectral_r" , "seismic", "seismic_r" ,"spring","spring_r", "summer","summer_r", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd",
+        "prism", "terrain", "terrain_r","winter", "winter_r"], label_visibility ='collapsed')
 
-    # Lets give some dynamic condisiton to the charts. 
-    # How they should resize if the number of samples is more than five. a fixed width creates problem
-    @st.cache
-    def graph_h():
-        if df.shape[0]>5:
-            eff_h = 5+(df.shape[0]-5)*0.45
-            others = 2+(df.shape[0]-2)*0.15
-            rotation = 0
-            data_labels = 'edge'
-            return eff_h, others, rotation, data_labels
-        else:
-            return 5,  2, 0, 'edge'
-    eff_h, others, rotation, data_labels= graph_h()
+        # Lets give some dynamic condisiton to the charts. 
+        # How they should resize if the number of samples is more than five. a fixed width creates problem
+        @st.cache
+        def graph_h():
+            if df.shape[0]>5:
+                eff_h = 5+(df.shape[0]-5)*0.45
+                others = 2+(df.shape[0]-2)*0.15
+                rotation = 0
+                data_labels = 'edge'
+                return eff_h, others, rotation, data_labels
+            else:
+                return 5,  2, 0, 'edge'
+        eff_h, others, rotation, data_labels= graph_h()
 
-    # By default the charts are not shown. So if someone wants to see charts, they check the box and then the graphs 
-    # appear. 
-    fig,(ax1, ax2, ax3) = plt.subplots(3, 1, figsize = (7, eff_h), sharex=True, gridspec_kw={'hspace':0.15})
-    Fplot = sns.barplot(x = "Zero%_eff", y = 'Quarry', data=df, ax=ax1, palette=pallete)
-    ax1.set_ylabel(None)
-    ax1.set_xlabel(None)
-    ax1.axes.xaxis.set_visible(False)
-    ax1.text(0.45, -0.11, s="#10 Seive", transform = ax1.transAxes)
-    ax1.text(0.95, 0.18+eff_h*0.012, "RNV (0%)", rotation =270, transform= ax1.transAxes)
-    ax1.bar_label(Fplot.containers[0], fmt="%.2f", rotation =0)
-    ax1.set_title("Lime Fineness (%)", fontsize = 18)
-
-
-    Splot =sns.barplot(x = "Fifty%_eff", y = 'Quarry', data=df, ax=ax2, palette=pallete)
-    ax2.set_ylabel(None)
-    ax2.set_xlabel(None)
-    ax2.axes.xaxis.set_visible(False)
-    ax2.text(0.45, -0.11, s="#50 Seive", transform = ax2.transAxes)
-    ax2.text(0.95, 0.18+eff_h*0.012, "RNV (50%)", rotation =270, transform= ax2.transAxes)
-    ax2.bar_label(Splot.containers[0], fmt="%.2f", rotation = 0)
+        # By default the charts are not shown. So if someone wants to see charts, they check the box and then the graphs 
+        # appear. 
+        fig,(ax1, ax2, ax3) = plt.subplots(3, 1, figsize = (7, eff_h), sharex=True, gridspec_kw={'hspace':0.15})
+        Fplot = sns.barplot(x = "Zero%_eff", y = 'Quarry', data=df, ax=ax1, palette=pallete)
+        ax1.set_ylabel(None)
+        ax1.set_xlabel(None)
+        ax1.axes.xaxis.set_visible(False)
+        ax1.text(0.45, -0.11, s="#10 Seive", transform = ax1.transAxes)
+        ax1.text(0.95, 0.18+eff_h*0.012, "RNV (0%)", rotation =270, transform= ax1.transAxes)
+        ax1.bar_label(Fplot.containers[0], fmt="%.2f", rotation =0)
+        ax1.set_title("Lime Fineness (%)", fontsize = 18)
 
 
-    Tplot = sns.barplot(x = "Hund%_eff", y = 'Quarry', data=df, ax=ax3, palette=pallete)
-    ax3.set_xlim((0, 100))
-    ax3.set_ylabel(None)
-    ax3.set_xlabel(None)
-    ax3.text(0.95, 0.18+eff_h*0.012, "RNV (100%)", rotation =270, transform= ax3.transAxes)
-    ax3.bar_label(Tplot.containers[0],fmt="%.2f", rotation = 0)
-    ax3.set_xlabel("", fontsize = 14)
-    ax3.axes.xaxis.set_visible(False)
-    ax3.set_xticklabels([])
-
-    rect = plt.Rectangle(
-        # (lower-left corner), width, height
-        (0.1232, 0.11), 0.776, 0.77, fill=False, color="k", lw=1, 
-        zorder=1000, transform=fig.transFigure, figure=fig
-    )
-    fig.patches.extend([rect]);
-
-    # plot for RNV_______________
-
-    fig1, ax4= plt.subplots(figsize = (7,others))
-    ax4.set_xlabel('RNV (%)')
-    ax4.set_ylabel(None)
-    ax4.set_title("Relative Neutralizaing Value (RNV (%))", fontsize = 18)
-
-    FrPlot = sns.barplot(x='RNV', y = 'Quarry', data=df, ax=ax4, palette=pallete)
-    ax4.set_xlim((0, 100))
-    ax4.bar_label(FrPlot.containers[0], fmt="%.2f", rotation=0)
-    ax4.set_ylabel(None)
-    ax4.set_xlabel("", fontsize = 14)
-    ax4.axes.xaxis.set_visible(False)
-    ax4.set_xticklabels([])
-    st.pyplot(fig)
-    st.pyplot(fig1)
+        Splot =sns.barplot(x = "Fifty%_eff", y = 'Quarry', data=df, ax=ax2, palette=pallete)
+        ax2.set_ylabel(None)
+        ax2.set_xlabel(None)
+        ax2.axes.xaxis.set_visible(False)
+        ax2.text(0.45, -0.11, s="#50 Seive", transform = ax2.transAxes)
+        ax2.text(0.95, 0.18+eff_h*0.012, "RNV (50%)", rotation =270, transform= ax2.transAxes)
+        ax2.bar_label(Splot.containers[0], fmt="%.2f", rotation = 0)
 
 
-    # Plot for Bulk Recommendation of  Lime
-    st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
+        Tplot = sns.barplot(x = "Hund%_eff", y = 'Quarry', data=df, ax=ax3, palette=pallete)
+        ax3.set_xlim((0, 100))
+        ax3.set_ylabel(None)
+        ax3.set_xlabel(None)
+        ax3.text(0.95, 0.18+eff_h*0.012, "RNV (100%)", rotation =270, transform= ax3.transAxes)
+        ax3.bar_label(Tplot.containers[0],fmt="%.2f", rotation = 0)
+        ax3.set_xlabel("", fontsize = 14)
+        ax3.axes.xaxis.set_visible(False)
+        ax3.set_xticklabels([])
 
-    st.markdown("<h5 style='background-color: #0033A0; font-size:35px; text-align: center; color: 	white;'>Lime Recommendation and Application Cost</h5>", unsafe_allow_html=True)
+        rect = plt.Rectangle(
+            # (lower-left corner), width, height
+            (0.1232, 0.11), 0.776, 0.77, fill=False, color="k", lw=1, 
+            zorder=1000, transform=fig.transFigure, figure=fig
+        )
+        fig.patches.extend([rect]);
 
-    # Here I also want to give an option 
-    st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
-    fig2, ax5 = plt.subplots(figsize =(7,others) )
-    ax5.set_ylabel(None)
-    ax5.set_title(f"Adjusted Lime Recommendation ($Tons\ Acre^{-1}$)\nto raise soil water pH of {SWPH} to a target pH of {TPH}", fontsize = 14)
+        # plot for RNV_______________
 
-    FiPlot = sns.barplot(x='Bulk_Rec', y = 'Quarry', data=df, ax=ax5, palette=pallete)
-    ax5.bar_label(FiPlot.containers[0], fmt="%.2f", rotation = rotation, label_type=data_labels)
-    ax5.set_ylabel(None)
-    ax5.set_xlim([0, max(df.Bulk_Rec)+max(df.Bulk_Rec)*0.1]) # This syntax max the x axis length dynamic. Without it the data lable makes a problem
-    ax5.set_xlabel("", fontsize = 14)
-    ax5.axes.xaxis.set_visible(False)
-    ax5.set_xticklabels([])
-        
-        # Plot for Cost of  Lime
+        fig1, ax4= plt.subplots(figsize = (7,others))
+        ax4.set_xlabel('RNV (%)')
+        ax4.set_ylabel(None)
+        ax4.set_title("Relative Neutralizaing Value (RNV (%))", fontsize = 18)
 
-    fig3, ax6 = plt.subplots(figsize =(7,others) )
-    ax6.set_ylabel(None)
-    ax6.set_title(f"Total Cost of Lime Application ($\$\ Acre^{-1}$)\nto raise soil water pH of {SWPH} to a target pH of {TPH}", fontsize = 14)
+        FrPlot = sns.barplot(x='RNV', y = 'Quarry', data=df, ax=ax4, palette=pallete)
+        ax4.set_xlim((0, 100))
+        ax4.bar_label(FrPlot.containers[0], fmt="%.2f", rotation=0)
+        ax4.set_ylabel(None)
+        ax4.set_xlabel("", fontsize = 14)
+        ax4.axes.xaxis.set_visible(False)
+        ax4.set_xticklabels([])
+        st.pyplot(fig)
+        st.pyplot(fig1)
 
-    SiPlot = sns.barplot(x='Cost', y = 'Quarry', data=df, ax=ax6, palette=pallete)
-    ax6.bar_label(SiPlot.containers[0], fmt="%.2f", rotation = rotation, label_type=data_labels)
-    ax6.set_ylabel(None)
-    ax6.set_xlabel(None)
-    ax6.set_xlim([0, max(df.Cost)+max(df.Cost)*0.1])
-    ax6.axes.xaxis.set_visible(False)
-    ax6.set_xticklabels([])
-    st.pyplot(fig2)
-    st.pyplot(fig3)
 
-    st.markdown("<h3 style='text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
+        # Plot for Bulk Recommendation of  Lime
+        st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='text-align: center; color: blue;'>" "</h3>", unsafe_allow_html=True)
 
-    st.markdown("<h2 style='background-color: #0033A0; font-size:35px; text-align: center; color: 	white;'>Output File</h2>", unsafe_allow_html=True)
-    st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h3>", unsafe_allow_html=True)
+        st.markdown("<h5 style='background-color: #0033A0; font-size:35px; text-align: center; color: 	white;'>Lime Recommendation and Application Cost</h5>", unsafe_allow_html=True)
 
-    # Lets generate a datetime stamp. This is used for saving file. SO each time you save a file, the date of the 
-    # will be automatically attached to your file's name. So you can later on see and refernce each measurement and keep track of it.
-    date1, _,_,_,_ = st.columns(5)
+        # Here I also want to give an option 
+        st.markdown("<h3 style='text-align: center; color: blue;'>""</h3>", unsafe_allow_html=True)
+        fig2, ax5 = plt.subplots(figsize =(7,others) )
+        ax5.set_ylabel(None)
+        ax5.set_title(f"Adjusted Lime Recommendation ($Tons\ Acre^{-1}$)\nto raise soil water pH of {SWPH} to a target pH of {TPH}", fontsize = 14)
 
-    date1.markdown("<h5 style=' background-color: #0033A0; text-align: center; color: white;'>Date</h5>", unsafe_allow_html=True)
+        FiPlot = sns.barplot(x='Bulk_Rec', y = 'Quarry', data=df, ax=ax5, palette=pallete)
+        ax5.bar_label(FiPlot.containers[0], fmt="%.2f", rotation = rotation, label_type=data_labels)
+        ax5.set_ylabel(None)
+        ax5.set_xlim([0, max(df.Bulk_Rec)+max(df.Bulk_Rec)*0.1]) # This syntax max the x axis length dynamic. Without it the data lable makes a problem
+        ax5.set_xlabel("", fontsize = 14)
+        ax5.axes.xaxis.set_visible(False)
+        ax5.set_xticklabels([])
+            
+            # Plot for Cost of  Lime
 
-    date = date1.date_input("date", label_visibility='collapsed')
-    time = datetime.datetime.now().time()
-    st.dataframe((df.set_index('Quarry').style.format("{:.2f}")))
-    st.caption("**:blue[This dataframe is interactive, You can scroll left-to-right or top-to-bottom. Please download the file before navigating to another manu. You will lose the data otherwise!]**")
+        fig3, ax6 = plt.subplots(figsize =(7,others) )
+        ax6.set_ylabel(None)
+        ax6.set_title(f"Total Cost of Lime Application ($\$\ Acre^{-1}$)\nto raise soil water pH of {SWPH} to a target pH of {TPH}", fontsize = 14)
 
-# Preparing data to download
-    df1 = df.to_csv().encode('utf-8')
-    # this checkbox will allow us to download data
-    st.markdown("### **:blue[Download!]**")
-    st.download_button(
-        key = 'b_csv',
-        label = "Download data as csv file",
-        data = df1,
-        file_name = f"Lime_particle_analysis_[{date}]_[{time}].csv",
-        mime = 'text/csv'
-    )
-    st.caption(":red[Note that a default dataset, corresponding to the number of open slots, is downloaded if you don't insert values in the form or don't upload  a file]")
+        SiPlot = sns.barplot(x='Cost', y = 'Quarry', data=df, ax=ax6, palette=pallete)
+        ax6.bar_label(SiPlot.containers[0], fmt="%.2f", rotation = rotation, label_type=data_labels)
+        ax6.set_ylabel(None)
+        ax6.set_xlabel(None)
+        ax6.set_xlim([0, max(df.Cost)+max(df.Cost)*0.1])
+        ax6.axes.xaxis.set_visible(False)
+        ax6.set_xticklabels([])
+        st.pyplot(fig2)
+        st.pyplot(fig3)
 
+        st.markdown("<h3 style='text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
+        st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h1>", unsafe_allow_html=True)
+
+        st.markdown("<h2 style='background-color: #0033A0; font-size:35px; text-align: center; color: 	white;'>Output File</h2>", unsafe_allow_html=True)
+        st.markdown("<h3 style=' text-align: center; color: 	black;'>""</h3>", unsafe_allow_html=True)
+
+        # Lets generate a datetime stamp. This is used for saving file. SO each time you save a file, the date of the 
+        # will be automatically attached to your file's name. So you can later on see and refernce each measurement and keep track of it.
+        date1, _,_,_,_ = st.columns(5)
+
+        date1.markdown("<h5 style=' background-color: #0033A0; text-align: center; color: white;'>Date</h5>", unsafe_allow_html=True)
+
+        date = date1.date_input("date", label_visibility='collapsed')
+        time = datetime.datetime.now().time()
+        st.dataframe((df.set_index('Quarry').style.format("{:.2f}")))
+        st.caption("**:blue[This dataframe is interactive, You can scroll left-to-right or top-to-bottom. Please download the file before navigating to another manu. You will lose the data otherwise!]**")
+
+    # Preparing data to download
+        df1 = df.to_csv().encode('utf-8')
+        # this checkbox will allow us to download data
+        st.markdown("### **:blue[Download!]**")
+        st.download_button(
+            key = 'b_csv',
+            label = "Download data as csv file",
+            data = df1,
+            file_name = f"Lime_particle_analysis_[{date}]_[{time}].csv",
+            mime = 'text/csv'
+        )
+        st.caption(":red[Note that a default dataset, corresponding to the number of open slots, is downloaded if you don't insert values in the form or don't upload  a file]")
+    except:
+        st.markdown("### **:red[Please upload the correct data and try again]**")
         
 # If someone wants to tell us about it or give us suggestions
 if selected1 =='Contact':
